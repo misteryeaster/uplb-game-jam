@@ -1,0 +1,213 @@
+[gd_scene load_steps=21 format=3 uid="uid://bkhxvwy5g5sy8"]
+
+[ext_resource type="Script" uid="uid://2jcbf6tmc0vk" path="res://handlers/ui_handler.gd" id="1_0wfyh"]
+[ext_resource type="Script" uid="uid://cajxbpi4jdr5p" path="res://ui/play_button.gd" id="2_sugp2"]
+[ext_resource type="Script" uid="uid://d3ltxwr02g3tp" path="res://ui/main_menu.gd" id="2_tefeu"]
+[ext_resource type="Script" uid="uid://ctrbjgxpwsdk8" path="res://ui/options_button.gd" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://hx5gquhfqrh" path="res://handlers/game_handler.gd" id="4_jyhfs"]
+[ext_resource type="Script" uid="uid://br26v3ut3btf" path="res://ui/exit_button.gd" id="4_tbgi4"]
+[ext_resource type="Script" uid="uid://bnde3arjtnajm" path="res://ui/hud.gd" id="6_jkv2x"]
+[ext_resource type="Script" uid="uid://d3xpsei8r7tgi" path="res://ui/health_bar.gd" id="7_jbj1t"]
+[ext_resource type="Texture2D" uid="uid://jju3vechvkxk" path="res://assets/yes.png" id="7_o6xl0"]
+[ext_resource type="Script" uid="uid://b63scijqlvwg" path="res://gameplay/camera.gd" id="7_ya4ey"]
+[ext_resource type="Script" uid="uid://c2c3dugujwx7n" path="res://gameplay/player.gd" id="8_tipki"]
+[ext_resource type="Script" uid="uid://b7816nyh3oiad" path="res://gameplay/platforms.gd" id="9_choun"]
+[ext_resource type="Script" uid="uid://64vjw851i02y" path="res://gameplay/player/hurtbox.gd" id="10_eb6dy"]
+[ext_resource type="Script" uid="uid://cj6lyt4v7oex5" path="res://gameplay/player/health.gd" id="11_trceg"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_85g3d"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_choun"]
+sky_material = SubResource("ProceduralSkyMaterial_85g3d")
+
+[sub_resource type="Environment" id="Environment_ya4ey"]
+background_mode = 2
+sky = SubResource("Sky_choun")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_tbgi4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jbj1t"]
+bg_color = Color(0.705882, 0.2, 0.290196, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ya4ey"]
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ya4ey")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("1_0wfyh")
+
+[node name="MainMenu" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_tefeu")
+
+[node name="Label" type="RichTextLabel" parent="UI/MainMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -314.0
+offset_top = 150.0
+offset_right = 314.0
+offset_bottom = 227.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 48
+text = "UPLB GAME JAM THING"
+horizontal_alignment = 1
+vertical_alignment = 1
+custom_effects = [SubResource("RichTextEffect_tbgi4")]
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="PlayButton" type="Button" parent="UI/MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -26.5
+offset_right = 128.0
+offset_bottom = 26.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/icon_hover_color = Color(0.515867, 0.515867, 0.515867, 1)
+theme_override_font_sizes/font_size = 32
+text = "Play"
+script = ExtResource("2_sugp2")
+
+[node name="OptionsButton" type="Button" parent="UI/MainMenu"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = 45.0
+offset_right = 128.0
+offset_bottom = 98.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Options"
+script = ExtResource("3_sugp2")
+
+[node name="ExitButton" type="Button" parent="UI/MainMenu"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = 114.0
+offset_right = 128.0
+offset_bottom = 167.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Quit
+"
+script = ExtResource("4_tbgi4")
+
+[node name="HUD" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_jkv2x")
+
+[node name="HealthBar" type="ProgressBar" parent="UI/HUD"]
+custom_minimum_size = Vector2(24, 0)
+offset_left = 907.0
+offset_top = 28.0
+offset_right = 1107.0
+offset_bottom = 55.0
+theme_override_font_sizes/font_size = 24
+theme_override_styles/fill = SubResource("StyleBoxFlat_jbj1t")
+value = 50.0
+script = ExtResource("7_jbj1t")
+
+[node name="Label" type="Label" parent="UI/HUD"]
+layout_mode = 0
+offset_left = 769.0
+offset_top = 23.0
+offset_right = 892.0
+offset_bottom = 68.0
+theme_override_font_sizes/font_size = 32
+text = "HEALTH"
+
+[node name="Handlers" type="Node3D" parent="."]
+
+[node name="Game" type="Node3D" parent="Handlers"]
+script = ExtResource("4_jyhfs")
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 0.987373, 0.158416, 0, -0.158416, 0.987373, 0, 3.5, 3.5)
+script = ExtResource("7_ya4ey")
+initial_pos = Vector3(0, 3.5, 3.5)
+
+[node name="Player" type="Node3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("8_tipki")
+initial_position = Vector3(0, 1, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="World/Player"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+texture = ExtResource("7_o6xl0")
+
+[node name="Hurtbox" type="Area3D" parent="World/Player"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("10_eb6dy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Player/Hurtbox"]
+shape = SubResource("CapsuleShape3D_ya4ey")
+
+[node name="Health" type="Node3D" parent="World/Player"]
+script = ExtResource("11_trceg")
+max_health = 10.0
+
+[node name="Obstacles" type="Node3D" parent="World"]
+
+[node name="Platforms" type="Node3D" parent="World"]
+script = ExtResource("9_choun")
+
+[connection signal="game_start_requested" from="UI/MainMenu/PlayButton" to="Handlers/Game" method="_on_play_button_game_start_requested"]
+[connection signal="pressed" from="UI/MainMenu/PlayButton" to="UI/MainMenu/PlayButton" method="_on_pressed"]
+[connection signal="pressed" from="UI/MainMenu/OptionsButton" to="UI/MainMenu/OptionsButton" method="_on_pressed"]
+[connection signal="game_exit_requested" from="UI/MainMenu/ExitButton" to="Handlers/Game" method="_on_exit_button_game_exit_requested"]
+[connection signal="pressed" from="UI/MainMenu/ExitButton" to="UI/MainMenu/ExitButton" method="_on_pressed"]
+[connection signal="game_ended" from="Handlers/Game" to="UI/MainMenu" method="_on_game_game_ended"]
+[connection signal="game_ended" from="Handlers/Game" to="UI/HUD/HealthBar" method="_on_game_game_ended"]
+[connection signal="game_started" from="Handlers/Game" to="UI/MainMenu" method="_on_game_game_started"]
+[connection signal="game_started" from="Handlers/Game" to="World/Player" method="_on_game_game_started"]
+[connection signal="game_started" from="Handlers/Game" to="World/Camera3D" method="_on_game_game_started"]
+[connection signal="died" from="World/Player" to="Handlers/Game" method="_on_player_died"]
+[connection signal="just_reset" from="World/Player" to="World/Camera3D" method="_on_player_just_reset"]
+[connection signal="just_reset" from="World/Player" to="World/Player/Health" method="_on_player_just_reset"]
+[connection signal="area_entered" from="World/Player/Hurtbox" to="World/Player/Hurtbox" method="_on_area_entered"]
+[connection signal="hurt" from="World/Player/Hurtbox" to="World/Player/Health" method="_on_hurtbox_hurt"]
+[connection signal="depleted" from="World/Player/Health" to="World/Player" method="_on_health_depleted"]
+[connection signal="health_percentage_changed" from="World/Player/Health" to="UI/HUD/HealthBar" method="_on_health_health_percentage_changed"]
