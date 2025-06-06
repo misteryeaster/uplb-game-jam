@@ -1,9 +1,9 @@
 extends Node3D
 
 signal depleted
-
 signal health_changed
 signal health_percentage_changed
+signal player_hurt(damage: float)  # New signal for camera shake
 
 @export var max_health: float
 
@@ -21,6 +21,7 @@ signal health_percentage_changed
 		
 func on_hurt(damage: float) -> void:
 	health -= damage
+	player_hurt.emit(damage)  # Emit signal for camera shake
 	
 func setup():
 	health = max_health

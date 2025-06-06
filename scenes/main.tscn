@@ -138,6 +138,7 @@ script = ExtResource("6_jkv2x")
 
 [node name="HealthBar" type="ProgressBar" parent="UI/HUD"]
 custom_minimum_size = Vector2(24, 0)
+layout_mode = 0
 offset_left = 907.0
 offset_top = 28.0
 offset_right = 1107.0
@@ -202,12 +203,16 @@ script = ExtResource("9_choun")
 [connection signal="game_ended" from="Handlers/Game" to="UI/MainMenu" method="_on_game_game_ended"]
 [connection signal="game_ended" from="Handlers/Game" to="UI/HUD/HealthBar" method="_on_game_game_ended"]
 [connection signal="game_started" from="Handlers/Game" to="UI/MainMenu" method="_on_game_game_started"]
-[connection signal="game_started" from="Handlers/Game" to="World/Player" method="_on_game_game_started"]
 [connection signal="game_started" from="Handlers/Game" to="World/Camera3D" method="_on_game_game_started"]
+[connection signal="game_started" from="Handlers/Game" to="World/Player" method="_on_game_game_started"]
 [connection signal="died" from="World/Player" to="Handlers/Game" method="_on_player_died"]
 [connection signal="just_reset" from="World/Player" to="World/Camera3D" method="_on_player_just_reset"]
 [connection signal="just_reset" from="World/Player" to="World/Player/Health" method="_on_player_just_reset"]
 [connection signal="area_entered" from="World/Player/Hurtbox" to="World/Player/Hurtbox" method="_on_area_entered"]
+[connection signal="hurt" from="World/Player/Hurtbox" to="UI" method="_on_hurtbox_hurt"]
+[connection signal="hurt" from="World/Player/Hurtbox" to="World/Player" method="_on_hurtbox_hurt"]
 [connection signal="hurt" from="World/Player/Hurtbox" to="World/Player/Health" method="_on_hurtbox_hurt"]
 [connection signal="depleted" from="World/Player/Health" to="World/Player" method="_on_health_depleted"]
 [connection signal="health_percentage_changed" from="World/Player/Health" to="UI/HUD/HealthBar" method="_on_health_health_percentage_changed"]
+[connection signal="player_hurt" from="World/Player/Health" to="UI" method="_on_health_player_hurt"]
+[connection signal="player_hurt" from="World/Player/Health" to="World/Camera3D" method="_on_health_player_hurt"]
