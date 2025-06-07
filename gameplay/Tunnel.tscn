@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvhmoye0ycyex"]
+
+[ext_resource type="ArrayMesh" uid="uid://bsvnpuvukke7a" path="res://assets/overpass.obj" id="1_xycqy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hrwii"]
+albedo_color = Color(0.326679, 0.326679, 0.326679, 1)
+
+[node name="Tunnel" type="Node3D"]
+
+[node name="Control" type="Node3D" parent="."]
+transform = Transform3D(0.375, 0, 0, 0, 0.375, 0, 0, 0, 0.375, 0, 0, 0)
+
+[node name="PedOverpass" type="MeshInstance3D" parent="Control"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 189.327, -21.8114, -39.8071)
+material_override = SubResource("StandardMaterial3D_hrwii")
+mesh = ExtResource("1_xycqy")
+skeleton = NodePath("../..")

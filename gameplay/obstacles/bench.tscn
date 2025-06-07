@@ -1,20 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://cxdjd3simd81e"]
 
 [ext_resource type="Script" uid="uid://b5mcgppsvx7xv" path="res://gameplay/obstacles/obstacle.gd" id="1_swsof"]
-[ext_resource type="Texture2D" uid="uid://cfhxhwexoo2v2" path="res://bench1.png" id="2_lgx48"]
+[ext_resource type="Texture2D" uid="uid://70ym8ms7gkme" path="res://assets/bench1.png" id="2_lgx48"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m6o0d"]
 size = Vector3(2.5, 1, 0.4)
 
 [node name="Bench" type="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.595812, 0)
 collision_layer = 4
 script = ExtResource("1_swsof")
 damage = 4.0
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.247382, 0.0160972, 0.0329576)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.247382, 0.580898, 0.0329576)
 texture = ExtResource("2_lgx48")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.108226, 0.502467, -0.00608969)
 shape = SubResource("BoxShape3D_m6o0d")

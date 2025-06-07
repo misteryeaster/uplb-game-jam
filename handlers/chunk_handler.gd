@@ -1,56 +1,181 @@
-
 extends Node3D
 
-@export var showable_chunks: int = 5
+# --- Exports ---
+@export var showable_chunks: int = 5 # How many chunks ahead of the player to display
+@export var chunk_size: float = 100 # The size of each chunk along the Z axis
 
-@export var chunk_size: float = 100
+# The path where your chunk scene files are located
+const CHUNK_DIR_PATH = "res://gameplay/chunks/"
 
-var base_chunk = preload("res://gameplay/chunks/chunk.tscn")
+# Array to hold the different chunk scenes loaded from the directory
+# No longer exported, as it's populated automatically
+var chunk_scenes: Array[PackedScene] = [] # Explicitly typed array
 
-@onready var player = get_parent().get_node("Player")
+# --- Onready Variables ---
+# Using get_owner_or_null() and get_node_or_null() is safer
+@onready var player: Node3D = get_parent().get_node_or_null("Player")
 
-@onready var known_current_chunk: int = 0
+# --- State Variables ---
+# @onready is appropriate here to get the initial value when the node enters the tree
+@onready var known_current_chunk: int = get_current_chunk() # Initialize based on initial player position
 
+# --- Core Functions ---
+
+# Function to create a chunk at a specific index
 func create_chunk(index: int):
-	var new_chunk: Node3D = base_chunk.instantiate()
+	# Check if any chunk scenes were successfully loaded from the directory
+	if chunk_scenes.is_empty():
+		print("WARNING: Cannot create chunk ", index, ". No chunk scenes available in 'chunk_scenes' array! Check if any .tscn files are in ", CHUNK_DIR_PATH)
+		return # Cannot create a chunk if no scenes are provided
+
+	# Select a random scene from the array
+	# randi_range returns an integer between the two arguments (inclusive)
+	var random_index = randi_range(0, chunk_scenes.size() - 1)
+	var random_scene = chunk_scenes[random_index]
 	
-	new_chunk.position = Vector3.FORWARD * index * chunk_size
+	# Instantiate the randomly selected scene
+	var new_chunk: Node3D = random_scene.instantiate()
 	
+	# Position the chunk based on its index
+	# Assuming progression is along the negative Z axis, hence Vector3.FORWARD * index * chunk_size
+	new_chunk.position = Vector3.FORWARD * float(index) * chunk_size # Ensure index is float for multiplication
+	
+	# Name the chunk by its index. This is crucial for update_chunks to track them.
 	new_chunk.name = str(index)
 	
 	add_child(new_chunk)
-	
+	# print("Created chunk ", index, " using scene from path:", random_scene.get_path()) # Optional debug print
+
+# Function to update which chunks should be present
 func update_chunks():
-	var chunks_to_generate = []
-	
+	# Determine which chunk indices should currently exist
+	var chunks_to_keep = []
+	# We want to keep chunks from the current one up to showable_chunks ahead
 	for i in range(showable_chunks):
-		chunks_to_generate.append(known_current_chunk + i)
+		chunks_to_keep.append(known_current_chunk + i)
+		
+	# print("Expected chunks to keep: ", chunks_to_keep) # Optional debug print
 	
+	var existing_chunk_indices = []
+	
+	# Iterate through existing children to see which ones we have and which to remove
 	for child in get_children():
-		var index = int(child.name)
-		
-		if (index in chunks_to_generate):
-			chunks_to_generate.erase(index)
+		# Check if the child's name is a valid integer index
+		if child.name.is_valid_int():
+			var index = int(child.name)
+			existing_chunk_indices.append(index) # Keep track of existing indices
+
+			# If an existing chunk's index is NOT in the list of chunks to keep, queue it for deletion
+			if index not in chunks_to_keep:
+				# print("Queueing chunk ", index, " for free.") # Optional debug print
+				child.queue_free()
+		# else:
+			# print("Skipping non-chunk child:", child.name) # Optional debug print for other nodes like Player
+
+	# Determine which chunks need to be created (those in chunks_to_keep but not existing)
+	var chunks_to_create = []
+	for index_to_check in chunks_to_keep:
+		if index_to_check not in existing_chunk_indices:
+			chunks_to_create.append(index_to_check)
 			
-			continue
-			
-		child.queue_free()
-		
-	for chunk in chunks_to_generate:
-		create_chunk(chunk)
-	
+	# print("Chunks to create: ", chunks_to_create) # Optional debug print
+
+	# Create the missing chunks
+	for chunk_index_to_create in chunks_to_create:
+		create_chunk(chunk_index_to_create)
+
+# Function to determine the player's current chunk index
 func get_current_chunk():
+	# Ensure player node is valid before trying to access its position
+	if not is_instance_valid(player):
+		# print("WARNING: Player node is not valid or not found!") # Already warned in _ready
+		return known_current_chunk # Return the last known chunk if player is missing
+
+	# The player is likely moving along the negative Z axis (-player.global_position.z)
+	# Divide by chunk_size to get the index. Integer conversion truncates.
+	# Example: player at z=0 is in chunk 0. player at z=-99 is in chunk 0. player at z=-100 is in chunk 1.
+	# Ensure chunk_size is not zero to prevent division by zero error
+	if chunk_size == 0:
+		print("WARNING: chunk_size is 0! Cannot calculate current chunk.")
+		return known_current_chunk
+
 	return int(-player.global_position.z / chunk_size)
-	
+
+# --- Helper Function to Load Scenes from Directory ---
+
+# This function scans the specified directory and loads all .tscn files as PackedScenes
+# IMPORTANT: Added the return type hint "-> Array[PackedScene]"
+func _load_chunk_scenes_from_directory(path: String) -> Array[PackedScene]:
+	# Declare loaded_scenes with the correct type as well for clarity and consistency
+	var loaded_scenes: Array[PackedScene] = []
+	var dir = DirAccess.open(path) # Get a DirAccess object for the path
+
+	if dir:
+		dir.list_dir_begin() # Start listing directory contents
+		var file_name = dir.get_next() # Get the first entry (file or directory name)
+
+		while file_name != "": # Loop while there are entries
+			# Check if the entry is a file (not a directory, hidden file, or special entry like '.' or '..')
+			# Note: Godot 4's DirAccess filters out '.' and '..' automatically
+			# We also want to skip hidden files (names starting with '.')
+			if not dir.current_is_dir() and not file_name.begins_with("."):
+				if file_name.ends_with(".tscn"): # Check if the file is a .tscn scene file
+					var full_path = path.path_join(file_name) # Construct the full resource path (e.g., "res://gameplay/chunks/chunk1.tscn")
+					var loaded_resource = load(full_path) # Load the resource
+
+					# Check if the loaded resource is a valid PackedScene
+					if loaded_resource and loaded_resource is PackedScene:
+						loaded_scenes.append(loaded_resource)
+						# print("Found and loaded chunk scene:", full_path) # Optional debug print
+					else:
+						# Optional: Print a warning if a .tscn file isn't a valid PackedScene
+						print("Skipping invalid or non-PackedScene resource found in chunk directory:", full_path)
+
+			file_name = dir.get_next() # Move to the next entry
+
+		dir.list_dir_end() # End directory listing
+	else:
+		# Print an error if the directory could not be opened
+		print("Error: Could not open directory:", path, " to load chunk scenes.")
+		print("Please ensure the path '", path, "' is correct and the directory exists in your project.")
+
+	return loaded_scenes # This now returns an Array[PackedScene]
+
+# --- Godot Engine Callbacks ---
+
 func _ready() -> void:
-	update_chunks()
-		
-func _physics_process(delta: float) -> void:
+	# Seed the random number generator
+	randomize()
+
+	# Load chunk scenes from the specified directory before creating any chunks
+	# The return value now correctly matches the type of chunk_scenes
+	chunk_scenes = _load_chunk_scenes_from_directory(CHUNK_DIR_PATH)
+
+	# Check if any scenes were loaded
+	if chunk_scenes.is_empty():
+		print("FATAL ERROR: No chunk scenes loaded from", CHUNK_DIR_PATH, ". Please place your chunk#.tscn files there.")
+		# Optionally, you could disable this script or stop the game here if no chunks are loaded
+
+	# Ensure the player node was found
+	if not is_instance_valid(player):
+		print("FATAL ERROR: Player node not found! Make sure a Node3D named 'Player' exists and is accessible from this script's location.")
+		# This script won't work without the player node
+
+	# Initialize the chunks based on the player's starting position
+	# Only update chunks if player node is valid AND we loaded scenes
+	if is_instance_valid(player) and not chunk_scenes.is_empty():
+		update_chunks()
+
+func _physics_process(_delta: float) -> void:
+	# Only update chunks if player node is valid and we have scenes loaded
+	if not is_instance_valid(player) or chunk_scenes.is_empty():
+		return # Do nothing if player is missing or no chunks were loaded
+
+	# Determine the player's current chunk index
 	var current_chunk: int = get_current_chunk()
-	
+
+	# Check if the player has moved into a new chunk
 	if (current_chunk != known_current_chunk):
+		# If they have, update the known current chunk and refresh the visible chunks
 		known_current_chunk = current_chunk
 		update_chunks()
-		
-	known_current_chunk = current_chunk
-	
