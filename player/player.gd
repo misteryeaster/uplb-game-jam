@@ -12,7 +12,8 @@ signal picked_up
 
 @export_category("movement")
 
-@export var movement_speed: float
+# Rename this to clearly indicate it's the base speed
+@export var base_movement_speed: float
 
 @export var jump_height: float
 @export var rise_time: float
@@ -25,6 +26,14 @@ signal picked_up
 @export_category("effects")
 
 @export var effect_limit: int = 3
+
+# --- NEW: Heat Integration ---
+@export_category("Heat Interaction")
+
+@export var heat_bar_node: Node 
+
+# The minimum speed factor when heat is at maximum (e.g., 0.5 means half speed)
+@export var min_speed_factor_at_max_heat: float = 0.5
 
 var base_effect_timer: PackedScene = preload("res://gameplay/player/effect_timer.tscn")
 
@@ -39,19 +48,51 @@ var base_effect_timer: PackedScene = preload("res://gameplay/player/effect_timer
 	set(value):
 		current_lane = clamp(value, -1, 1)
 		
-@onready var current_move_speed: float = movement_speed:
-	set(value):
-		current_move_speed = max(value, movement_speed)
-		
+# Removed the setter, we'll manage speed multipliers directly
+# @onready var current_move_speed: float = base_movement_speed:
+#	set(value):
+#		current_move_speed = max(value, base_movement_speed)
+
 @onready var game_started: bool = false
 
 @onready var applied_effects: Array[String] = []
 
+# --- NEW: Speed Multipliers ---
+# Multiplier from effects like "energy" (defaults to 1.0)
+var _effect_speed_multiplier: float = 1.0
+# Multiplier calculated from heat (defaults to 1.0)
+var _heat_speed_multiplier: float = 1.0
+
+
+func _ready():
+	current_lane = 0
+	
+	global_position = initial_position
+	
+	$Footsteps.stop()
+	
+	if heat_bar_node:
+		heat_bar_node.heat_changed.connect(_on_heat_bar_heat_changed_by_player)
+		print("Player connected to HeatBar heat_changed signal.")
+		
+
+		if heat_bar_node.max_heat > 0:
+			_on_heat_bar_heat_changed_by_player(heat_bar_node.heat)
+		else:
+			printerr("Warning: HeatBar max_heat is 0 or less, cannot calculate initial heat penalty.")
+	else:
+		printerr("Warning: Player heat_bar_node not assigned in Inspector!")
+
+
 func _physics_process(delta: float) -> void:
 	if (!game_started):
 		return
-		
-	velocity.z = -current_move_speed * delta
+	
+	# Calculate the effective speed rate based on base speed and multipliers
+	var current_speed_rate = base_movement_speed * _effect_speed_multiplier * _heat_speed_multiplier
+	
+	# Apply the speed rate to the Z velocity (negative because moving forward on -Z)
+	velocity.z = -current_speed_rate * delta
 	
 	if (!is_on_floor()):
 		if (Input.is_action_pressed("move_jump")):
@@ -62,7 +103,7 @@ func _physics_process(delta: float) -> void:
 		
 	else:
 		velocity.y = 0
-	
+		
 	if (Input.is_action_just_pressed("move_left")):
 		current_lane -= 1
 		
@@ -91,13 +132,6 @@ func on_death():
 	died.emit()
 	
 	reset()
-	
-func _ready():
-	current_lane = 0
-	
-	global_position = initial_position
-	
-	$Footsteps.stop()
 		
 func _on_game_game_started() -> void:
 	$Footsteps.play()
@@ -113,39 +147,46 @@ func create_effect(effect_id: String, duration: float):
 	var new_effect_timer: Timer = base_effect_timer.instantiate()
 	
 	new_effect_timer.id = effect_id
-	new_effect_timer.duration = 5
+	new_effect_timer.duration = duration # Use the duration passed in
 	
 	new_effect_timer.connect("expired", on_effect_expiry)
 	
-	applied_effects.append(effect_id)
+	# Only add if not already present to avoid stacking multiple timers for the same effect type
+	if !applied_effects.has(effect_id):
+		applied_effects.append(effect_id)
 	
 	$Effects.add_child(new_effect_timer)
 	
 func on_effect_expiry(effect_id: String):
-	if (!applied_effects.has(effect_id)):
-		printerr("Effect was not recognized as applied yet it expired?")
-		return
-		
-	applied_effects.erase(effect_id)
-	
-	var alone: bool = applied_effects.has(effect_id)
+	# Remove from the list of applied effects
+	if applied_effects.has(effect_id):
+		applied_effects.erase(effect_id)
 	
 	match effect_id:
 		"energy":
-			current_move_speed /= 1.5
+			_effect_speed_multiplier = 1.0 # Reset the multiplier
 	
 func pickup_water():
 	cooled.emit(50)
 	
 func pickup_energy():
-	var existing: int = applied_effects.count("energy")
+	# Check existing timers for "energy" effect
+	var existing_count = 0
+	for child in $Effects.get_children():
+		if child is Timer and child.id == "energy":
+			existing_count += 1
 	
-	create_effect("energy", 1)
-	
-	if (existing > effect_limit):
+	if (existing_count >= effect_limit):
+		# if statement if magstack yung buffs
+		# You might want to extend the duration of an existing one instead.
+		print("Energy effect limit reached.")
 		return
 		
-	current_move_speed *= 1.5
+	# Apply the effect multiplier
+	_effect_speed_multiplier = 2.0
+	
+	# Create a timer for this effect
+	create_effect("energy", 5) # Use the duration you want for energy
 
 func pickup(pickup_id: String):
 	picked_up.emit(pickup_id)
@@ -166,3 +207,20 @@ func _on_health_health_changed(health: float) -> void:
 
 func _on_health_health_percentage_changed(health_percentage: float) -> void:
 	health_percentage_changed.emit(health_percentage)
+
+# --- NEW: Signal handler for HeatBar's heat_changed signal ---
+func _on_heat_bar_heat_changed_by_player(new_heat_value: float) -> void:
+	if !heat_bar_node or heat_bar_node.max_heat <= 0:
+		_heat_speed_multiplier = 1.0 # Default to no penalty if HeatBar is invalid
+		return
+		
+	# Calculate the heat percentage (0 to 1)
+	var heat_percentage = clamp(new_heat_value / heat_bar_node.max_heat, 0.0, 1.0)
+	
+	# Calculate the speed multiplier using linear interpolation (lerp)
+	# At 0% heat, multiplier is 1.0 (full speed)
+	# At 100% heat, multiplier is min_speed_factor_at_max_heat
+	_heat_speed_multiplier = lerp(1.0, min_speed_factor_at_max_heat, heat_percentage)
+	
+	# print("Heat: %s, Heat Percentage: %s, Heat Multiplier: %s" % [new_heat_value, heat_percentage, _heat_speed_multiplier])
+# --- END NEW ---
