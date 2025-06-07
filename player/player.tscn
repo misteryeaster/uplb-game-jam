@@ -1,0 +1,112 @@
+[gd_scene load_steps=16 format=3 uid="uid://chafxp1mxwqlm"]
+
+[ext_resource type="Script" uid="uid://c2c3dugujwx7n" path="res://player/player.gd" id="1_qjkh3"]
+[ext_resource type="Script" uid="uid://64vjw851i02y" path="res://player/hurtbox.gd" id="2_g6k8r"]
+[ext_resource type="Script" uid="uid://bt7s50ul5u4pb" path="res://gameplay/player/pickup_area.gd" id="3_boad6"]
+[ext_resource type="Script" uid="uid://cj6lyt4v7oex5" path="res://player/health.gd" id="4_rgyib"]
+[ext_resource type="Texture2D" uid="uid://dqnfti44c2kou" path="res://assets/playerRunning.png" id="5_hg6s5"]
+[ext_resource type="AudioStream" uid="uid://ci0hfmmpi2w46" path="res://assets/sfx/foosteps.wav" id="6_g6k8r"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ya4ey"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_muem4"]
+radius = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a8y0u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dp3eg"]
+atlas = ExtResource("5_hg6s5")
+region = Rect2(0, 0, 300, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ld40"]
+atlas = ExtResource("5_hg6s5")
+region = Rect2(300, 0, 300, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqmmt"]
+atlas = ExtResource("5_hg6s5")
+region = Rect2(600, 0, 300, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yc10j"]
+atlas = ExtResource("5_hg6s5")
+region = Rect2(900, 0, 300, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jscy8"]
+atlas = ExtResource("5_hg6s5")
+region = Rect2(1200, 0, 300, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pm3ni"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dp3eg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ld40")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqmmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yc10j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jscy8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_qjkh3")
+movement_speed = 1000.0
+jump_height = 4.0
+rise_time = 0.6
+fall_time = 0.5
+
+[node name="Hurtbox" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.998774, 0)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("2_g6k8r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+shape = SubResource("CapsuleShape3D_ya4ey")
+
+[node name="PickupArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.998774, 0)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("3_boad6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupArea"]
+shape = SubResource("SphereShape3D_muem4")
+
+[node name="Health" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.998774, 0)
+script = ExtResource("4_rgyib")
+max_health = 10.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.998774, 0)
+shape = SubResource("CapsuleShape3D_a8y0u")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.19382, 0)
+sprite_frames = SubResource("SpriteFrames_pm3ni")
+autoplay = "default"
+frame_progress = 0.229304
+
+[node name="Effects" type="Node3D" parent="."]
+
+[node name="Footsteps" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_g6k8r")
+
+[connection signal="just_reset" from="." to="Health" method="_on_player_just_reset"]
+[connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
+[connection signal="hurt" from="Hurtbox" to="Health" method="_on_hurtbox_hurt"]
+[connection signal="area_entered" from="PickupArea" to="PickupArea" method="_on_area_entered"]
+[connection signal="picked_up" from="PickupArea" to="." method="_on_pickup_area_picked_up"]
+[connection signal="depleted" from="Health" to="." method="_on_health_depleted"]
+[connection signal="health_changed" from="Health" to="." method="_on_health_health_changed"]
+[connection signal="health_percentage_changed" from="Health" to="." method="_on_health_health_percentage_changed"]

@@ -1,0 +1,124 @@
+[gd_scene load_steps=15 format=3 uid="uid://bkhncyqw1m2xf"]
+
+[ext_resource type="Script" uid="uid://bkgejhs7d0eyx" path="res://gameplay/pickups/pickup.gd" id="1_lo4va"]
+[ext_resource type="Texture2D" uid="uid://cxxod36btt0j7" path="res://assets/waterbottle.png" id="2_2ajf2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khtbs"]
+atlas = ExtResource("2_2ajf2")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lujjo"]
+atlas = ExtResource("2_2ajf2")
+region = Rect2(300, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7qxg"]
+atlas = ExtResource("2_2ajf2")
+region = Rect2(600, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ljls"]
+atlas = ExtResource("2_2ajf2")
+region = Rect2(900, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqn7l"]
+atlas = ExtResource("2_2ajf2")
+region = Rect2(1200, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stl00"]
+atlas = ExtResource("2_2ajf2")
+region = Rect2(1500, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6qah"]
+atlas = ExtResource("2_2ajf2")
+region = Rect2(1800, 0, 300, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_einbe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khtbs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lujjo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7qxg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ljls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqn7l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_stl00")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6qah")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4kpvn"]
+radius = 0.783175
+
+[sub_resource type="Animation" id="Animation_lo4va"]
+resource_name = "idle"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.25, 2.3, 3.26, 5.03333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.11295, 0), Vector3(0, 1.30843, 0), Vector3(0, 1.11295, 0), Vector3(0, 0.911474, 0), Vector3(0, 1.11295, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2ajf2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.11295, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ajf2"]
+_data = {
+&"RESET": SubResource("Animation_2ajf2"),
+&"idle": SubResource("Animation_lo4va")
+}
+
+[node name="WaterPickup" type="Area3D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_lo4va")
+id = "water"
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.11295, 0)
+sprite_frames = SubResource("SpriteFrames_einbe")
+autoplay = "default"
+frame_progress = 0.594201
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.11295, 0)
+shape = SubResource("SphereShape3D_4kpvn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2ajf2")
+}
+autoplay = "idle"

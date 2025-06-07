@@ -8,6 +8,7 @@ size = Vector3(1.25, 1, 0.4)
 
 [node name="Cone" type="Area3D"]
 collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_wlxt7")
 damage = 1.0
 

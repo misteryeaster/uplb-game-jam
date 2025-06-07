@@ -14,15 +14,6 @@ func _ready():
 	value = 100.0
 	update_bar_color(100.0)
 
-func _on_health_health_percentage_changed(health_percent: float) -> void:
-	var was_damaged = health_percent < actual_value
-	actual_value = health_percent
-	
-	update_bar_color(health_percent)
-	
-	if was_damaged:
-		show_damage_feedback()
-	
 func update_bar_color(percent: float):
 	var bar_color: Color
 	var text_color: Color
@@ -78,3 +69,14 @@ func _on_game_game_ended() -> void:
 	value = 100
 	stop_critical_pulse()
 	update_bar_color(100.0)
+
+
+func _on_player_health_percentage_changed(health_percentage: float) -> void:
+	var was_damaged: bool = health_percentage < actual_value
+	
+	actual_value = health_percentage
+	
+	update_bar_color(health_percentage)
+	
+	if was_damaged:
+		show_damage_feedback()

@@ -1,0 +1,123 @@
+[gd_scene load_steps=15 format=3 uid="uid://cmqtrivu47oq6"]
+
+[ext_resource type="Script" uid="uid://bkgejhs7d0eyx" path="res://gameplay/pickups/pickup.gd" id="1_4aiw6"]
+[ext_resource type="Texture2D" uid="uid://ctgag10yus3v5" path="res://assets/sting.png" id="2_4aiw6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4kpvn"]
+radius = 0.783175
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6r0v"]
+atlas = ExtResource("2_4aiw6")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ub0ps"]
+atlas = ExtResource("2_4aiw6")
+region = Rect2(300, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3y3l0"]
+atlas = ExtResource("2_4aiw6")
+region = Rect2(600, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8hi3"]
+atlas = ExtResource("2_4aiw6")
+region = Rect2(900, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnjly"]
+atlas = ExtResource("2_4aiw6")
+region = Rect2(1200, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdis1"]
+atlas = ExtResource("2_4aiw6")
+region = Rect2(1500, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14yw7"]
+atlas = ExtResource("2_4aiw6")
+region = Rect2(1800, 0, 300, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aeuk0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6r0v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ub0ps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3y3l0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8hi3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vnjly")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fdis1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14yw7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_lo4va"]
+resource_name = "idle"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.25, 2.3, 3.26, 5.03333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.11295, 0), Vector3(0, 1.30843, 0), Vector3(0, 1.11295, 0), Vector3(0, 0.911474, 0), Vector3(0, 1.11295, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2ajf2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.11295, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ajf2"]
+_data = {
+&"RESET": SubResource("Animation_2ajf2"),
+&"idle": SubResource("Animation_lo4va")
+}
+
+[node name="EnergyDrinkPickup" type="Area3D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_4aiw6")
+id = "energy"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.11295, 0)
+shape = SubResource("SphereShape3D_4kpvn")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.11295, 0)
+sprite_frames = SubResource("SpriteFrames_aeuk0")
+autoplay = "default"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2ajf2")
+}
+autoplay = "RESET"
