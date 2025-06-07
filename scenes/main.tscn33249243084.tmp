@@ -125,6 +125,7 @@ alignment = 0
 script = ExtResource("4_tbgi4")
 
 [node name="HUD" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -202,11 +203,9 @@ script = ExtResource("15_muem4")
 [connection signal="game_exit_requested" from="UI/MainMenu/ExitButton" to="Handlers/Game" method="_on_exit_button_game_exit_requested"]
 [connection signal="pressed" from="UI/MainMenu/ExitButton" to="UI/MainMenu/ExitButton" method="_on_pressed"]
 [connection signal="game_ended" from="Handlers/Game" to="UI/MainMenu" method="_on_game_game_ended"]
-[connection signal="game_ended" from="Handlers/Game" to="UI/HUD" method="_on_game_game_ended"]
 [connection signal="game_ended" from="Handlers/Game" to="UI/HUD/HealthBar" method="_on_game_game_ended"]
 [connection signal="game_ended" from="Handlers/Game" to="Handlers/Heat" method="_on_game_game_ended"]
 [connection signal="game_started" from="Handlers/Game" to="UI/MainMenu" method="_on_game_game_started"]
-[connection signal="game_started" from="Handlers/Game" to="UI/HUD" method="_on_game_game_started"]
 [connection signal="game_started" from="Handlers/Game" to="UI/HUD/HeatBar" method="_on_game_game_started"]
 [connection signal="game_started" from="Handlers/Game" to="Handlers/Heat" method="_on_game_game_started"]
 [connection signal="game_started" from="Handlers/Game" to="World/Camera3D" method="_on_game_game_started"]

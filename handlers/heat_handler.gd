@@ -28,3 +28,6 @@ func _on_game_game_started() -> void:
 
 func _on_game_game_ended() -> void:
 	game_ongoing = false
+
+func _on_player_cooled(cool_amount: float) -> void:
+	heat -= cool_amount

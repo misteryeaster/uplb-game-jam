@@ -1,6 +1,5 @@
 extends Camera3D
 
-@export var initial_pos: Vector3
 @export var follow_speed: float = 5.0
 @export var x_smoothing: float = 2.0
 @export var shake_intensity: float = 0.3
@@ -10,6 +9,8 @@ extends Camera3D
 @onready var offset: Vector3
 @onready var shake_timer: float = 0.0
 @onready var base_position: Vector3
+
+@onready var initial_pos: Vector3 = global_position
 
 func _ready():
 	player = get_node("../Player")
