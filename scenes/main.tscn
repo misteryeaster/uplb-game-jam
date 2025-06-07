@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bkhxvwy5g5sy8"]
+[gd_scene load_steps=23 format=3 uid="uid://bkhxvwy5g5sy8"]
 
 [ext_resource type="Script" uid="uid://2jcbf6tmc0vk" path="res://handlers/ui_handler.gd" id="1_0wfyh"]
 [ext_resource type="Script" uid="uid://cajxbpi4jdr5p" path="res://ui/play_button.gd" id="2_sugp2"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://d3xpsei8r7tgi" path="res://ui/health_bar.gd" id="7_jbj1t"]
 [ext_resource type="Script" uid="uid://b63scijqlvwg" path="res://gameplay/player/camera.gd" id="7_ya4ey"]
 [ext_resource type="Script" uid="uid://iwjpu7uprc1u" path="res://ui/heat_bar.gd" id="8_muem4"]
+[ext_resource type="Script" uid="uid://cqj2rjeka77pl" path="res://ui/sting_overlay.gd" id="9_a8y0u"]
 [ext_resource type="Script" uid="uid://dg8svd85sb833" path="res://handlers/heat_handler.gd" id="9_jbj1t"]
 [ext_resource type="PackedScene" uid="uid://chafxp1mxwqlm" path="res://player/player.tscn" id="12_trceg"]
 [ext_resource type="Script" uid="uid://b7816nyh3oiad" path="res://handlers/chunk_handler.gd" id="15_muem4"]
@@ -33,6 +34,115 @@ glow_enabled = true
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jbj1t"]
 bg_color = Color(0.876864, 0.363632, 0.225339, 1)
 
+[sub_resource type="Animation" id="Animation_a8y0u"]
+resource_name = "default"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/HUD/StingOverlay:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.351498, 0.9, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-754, 607), Vector2(169, 299), Vector2(281, 308), Vector2(1206, -156)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/HUD/StingOverlay:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.363214, 0.8, 1.30054),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/HUD/StingOverlay:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.43333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/HUD/StingOverlay:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.351498, 1.03333, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-0.233276, -0.371661, -0.392222, -0.233276]
+}
+
+[sub_resource type="Animation" id="Animation_jkv2x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/HUD/StingOverlay:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(252, 241)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/HUD/StingOverlay:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/HUD/StingOverlay:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/HUD/StingOverlay:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.233276]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jkv2x"]
+_data = {
+&"RESET": SubResource("Animation_jkv2x"),
+&"default": SubResource("Animation_a8y0u")
+}
+
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -46,6 +156,7 @@ shadow_enabled = true
 script = ExtResource("1_0wfyh")
 
 [node name="MainMenu" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -173,6 +284,25 @@ offset_bottom = 68.0
 theme_override_font_sizes/font_size = 32
 text = "HEALTH"
 
+[node name="StingOverlay" type="Label" parent="UI/HUD"]
+layout_mode = 0
+offset_left = 1206.0
+offset_top = -156.0
+offset_right = 1781.0
+offset_bottom = 152.0
+rotation = -0.233276
+theme_override_colors/font_color = Color(0.935365, 0, 0.127837, 1)
+theme_override_fonts/font = ExtResource("3_trceg")
+theme_override_font_sizes/font_size = 256
+text = "STUNG!"
+script = ExtResource("9_a8y0u")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/HUD/StingOverlay"]
+root_node = NodePath("../../../..")
+libraries = {
+&"": SubResource("AnimationLibrary_jkv2x")
+}
+
 [node name="Handlers" type="Node3D" parent="."]
 
 [node name="Game" type="Node3D" parent="Handlers"]
@@ -217,3 +347,4 @@ script = ExtResource("15_muem4")
 [connection signal="died" from="World/Player" to="Handlers/Game" method="_on_player_died"]
 [connection signal="health_percentage_changed" from="World/Player" to="UI/HUD/HealthBar" method="_on_player_health_percentage_changed"]
 [connection signal="just_reset" from="World/Player" to="World/Camera3D" method="_on_player_just_reset"]
+[connection signal="picked_up" from="World/Player" to="UI/HUD/StingOverlay" method="_on_player_picked_up"]

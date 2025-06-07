@@ -8,6 +8,8 @@ signal cooled
 signal health_changed
 signal health_percentage_changed
 
+signal picked_up
+
 @export_category("movement")
 
 @export var movement_speed: float
@@ -146,6 +148,7 @@ func pickup_energy():
 	current_move_speed *= 1.5
 
 func pickup(pickup_id: String):
+	picked_up.emit(pickup_id)
 	#print("Picked up " + pickup_id + ".")
 	match pickup_id:
 		"water":
