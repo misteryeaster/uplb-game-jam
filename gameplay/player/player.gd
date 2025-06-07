@@ -1,125 +1,169 @@
-extends Node3D
+extends CharacterBody3D
 
 signal died
 signal just_reset
-signal lane_changed
 
-@export var initial_position: Vector3
+signal cooled
+
+signal health_changed
+signal health_percentage_changed
+
+signal picked_up
+
+@export_category("movement")
+
+@export var movement_speed: float
+
+@export var jump_height: float
+@export var rise_time: float
+@export var fall_time: float
+
+@export_category("gameplay")
+
 @export var lane_spacing: float = 3
+
+@export_category("effects")
+
+@export var effect_limit: int = 3
+
+var base_effect_timer: PackedScene = preload("res://gameplay/player/effect_timer.tscn")
+
+@onready var jump_velocity: float = 2 * jump_height / rise_time
+
+@onready var rise_gravity: float = 2 * jump_height / (rise_time * rise_time)
+@onready var fall_gravity: float = 2 * jump_height / (fall_time * fall_time)
+
+@onready var initial_position: Vector3 = global_position
 
 @onready var current_lane: int = 0:
 	set(value):
-		var old_lane = current_lane
 		current_lane = clamp(value, -1, 1)
-		if old_lane != current_lane:
-			lane_changed.emit()
+		
+@onready var current_move_speed: float = movement_speed:
+	set(value):
+		current_move_speed = max(value, movement_speed)
 		
 @onready var game_started: bool = false
-@onready var sprite: Sprite3D
-@onready var is_stunned: bool = false
 
-var knockback_force: Vector3 = Vector3.ZERO
-var stun_timer: float = 0.0
+@onready var applied_effects: Array[String] = []
 
 func _ready():
-	sprite = $Sprite3D
+	# Add player to group so particles can find it easily
+	add_to_group("player")
+	
+	current_lane = 0
+	global_position = initial_position
+	$Footsteps.stop()
 
 func _physics_process(delta: float) -> void:
-	if !game_started:
+	if (!game_started):
 		return
+		
+	velocity.z = -current_move_speed * delta
 	
-	# Handle stun timer
-	if stun_timer > 0:
-		stun_timer -= delta
-		is_stunned = stun_timer > 0
-	
-	# Apply knockback (gradually reduce)
-	if knockback_force.length() > 0.1:
-		global_position += knockback_force * delta
-		knockback_force = knockback_force.lerp(Vector3.ZERO, 8.0 * delta)
+	if (!is_on_floor()):
+		if (Input.is_action_pressed("move_jump")):
+			velocity.y -= rise_gravity * delta
+			
+		else:
+			velocity.y -= fall_gravity * delta
+		
 	else:
-		knockback_force = Vector3.ZERO
+		velocity.y = 0
 	
-	# Normal forward movement (reduced if stunned)
-	var move_speed = 10.0 if !is_stunned else 5.0
-	global_position += Vector3.FORWARD * move_speed * delta
+	if (Input.is_action_just_pressed("move_left")):
+		current_lane -= 1
+		
+	if (Input.is_action_just_pressed("move_right")):
+		current_lane += 1
 	
-	# Lane movement (disabled if stunned)
+	#if (Input.is_action_just_pressed("move_jump")):
+		#velocity.y = jump_velocity
+		
 	global_position.x = lerp(global_position.x, current_lane * lane_spacing, 10 * delta)
 	
-	# Input (only if not stunned)
-	if !is_stunned:
-		if Input.is_action_just_pressed("move_left"):
-			current_lane -= 1
-			
-		if Input.is_action_just_pressed("move_right"):
-			current_lane += 1
-
-func take_damage(damage: float, hit_position: Vector3 = Vector3.ZERO):
-	# Calculate knockback direction
-	var knockback_direction = Vector3.BACK * 2.0  # Push player backward
-	
-	# Add some randomness to knockback
-	knockback_direction.x += randf_range(-1.0, 1.0)
-	knockback_direction.y = 0.5  # Small upward bump
-	
-	# Apply knockback force
-	knockback_force = knockback_direction * damage
-	
-	# Stun player briefly
-	stun_timer = 0.3 + (damage * 0.1)
-	is_stunned = true
-	
-	# Visual feedback
-	add_hurt_effect(damage)
-
-func add_hurt_effect(damage: float):
-	if !sprite:
-		return
-	
-	var tween = create_tween()
-	tween.set_parallel(true)
-	
-	# Color flash (red)
-	tween.tween_property(sprite, "modulate", Color.RED, 0.1)
-	tween.tween_property(sprite, "modulate", Color.WHITE, 0.2).set_delay(0.1)
-	
-	# Scale effect (bigger damage = bigger effect)
-	var scale_amount = 1.0 + (damage * 0.1)
-	tween.tween_property(sprite, "scale", Vector3(scale_amount, 0.3, 0.5), 0.1)
-	tween.tween_property(sprite, "scale", Vector3(0.5, 0.5, 0.5), 0.3).set_delay(0.1)
-	
-	# Rotation wobble
-	var wobble_amount = damage * 10.0
-	tween.tween_property(sprite, "rotation_degrees:z", wobble_amount, 0.05)
-	tween.tween_property(sprite, "rotation_degrees:z", -wobble_amount * 0.5, 0.1).set_delay(0.05)
-	tween.tween_property(sprite, "rotation_degrees:z", 0, 0.15).set_delay(0.15)
+	move_and_slide()
 
 func reset():
 	current_lane = 0
-	global_position = initial_position
-	knockback_force = Vector3.ZERO
-	stun_timer = 0.0
-	is_stunned = false
 	
-	if sprite:
-		sprite.modulate = Color.WHITE
-		sprite.scale = Vector3(0.5, 0.5, 0.5)
-		sprite.rotation_degrees = Vector3.ZERO
+	global_position = initial_position
 	
 	just_reset.emit()
 	
 func on_death():
 	game_started = false
+	
+	$Footsteps.stop()
+	
 	died.emit()
+	
 	reset()
 		
 func _on_game_game_started() -> void:
+	$Footsteps.play()
+	
 	game_started = true
 
 func _on_health_depleted() -> void:
 	on_death()
+	
+func create_effect(effect_id: String, duration: float):
+	#print("Created effect " + effect_id + ".")
+	#
+	var new_effect_timer: Timer = base_effect_timer.instantiate()
+	
+	new_effect_timer.id = effect_id
+	new_effect_timer.duration = 5
+	
+	new_effect_timer.connect("expired", on_effect_expiry)
+	
+	applied_effects.append(effect_id)
+	
+	$Effects.add_child(new_effect_timer)
+	
+func on_effect_expiry(effect_id: String):
+	if (!applied_effects.has(effect_id)):
+		printerr("Effect was not recognized as applied yet it expired?")
+		return
+		
+	applied_effects.erase(effect_id)
+	
+	var alone: bool = applied_effects.has(effect_id)
+	
+	match effect_id:
+		"energy":
+			current_move_speed /= 1.5
+	
+func pickup_water():
+	cooled.emit(50)
+	
+func pickup_energy():
+	var existing: int = applied_effects.count("energy")
+	
+	create_effect("energy", 1)
+	
+	if (existing > effect_limit):
+		return
+		
+	current_move_speed *= 1.5
 
-# Connect this to your hurtbox hurt signal
-func _on_hurtbox_hurt(damage: float) -> void:
-	take_damage(damage)
+func pickup(pickup_id: String):
+	picked_up.emit(pickup_id)
+	print("Picked up " + pickup_id + ".")
+	match pickup_id:
+		"water":
+			pickup_water()
+			
+		"energy":
+			pickup_energy()
+	
+func _on_pickup_area_picked_up(pickup_id: String) -> void:
+	pickup(pickup_id)
+
+
+func _on_health_health_changed(health: float) -> void:
+	health_changed.emit(health)
+
+func _on_health_health_percentage_changed(health_percentage: float) -> void:
+	health_percentage_changed.emit(health_percentage)

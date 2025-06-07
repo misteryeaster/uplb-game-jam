@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cm5n8k3p7q2sa"]
+
+[ext_resource type="Script" uid="uid://kfnuw0qrcwy" path="res://effects/sting_pickup_particles.gd" id="1_kpbqd"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fpxlt"]
+spread = 50.0
+initial_velocity_min = 6.0
+initial_velocity_max = 15.0
+gravity = Vector3(0, -8, 0)
+color = Color(1, 0.2, 0.1, 0.8)
+
+[node name="StingPickupParticles" type="GPUParticles3D"]
+emitting = true
+amount = 60
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_fpxlt")
+script = ExtResource("1_kpbqd")
