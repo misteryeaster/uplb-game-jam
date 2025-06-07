@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://70ym8ms7gkme"
-path.s3tc="res://.godot/imported/bench1.png-c668ffde9defb7d0c6217376efcf296e.s3tc.ctex"
+uid="uid://cb0cbyfkrp6dc"
+path.s3tc="res://.godot/imported/tallfence.png-cbcd538afa1b58c51a8382c5e1973b1c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/bench1.png"
-dest_files=["res://.godot/imported/bench1.png-c668ffde9defb7d0c6217376efcf296e.s3tc.ctex"]
+source_file="res://assets/tallfence.png"
+dest_files=["res://.godot/imported/tallfence.png-cbcd538afa1b58c51a8382c5e1973b1c.s3tc.ctex"]
 
 [params]
 

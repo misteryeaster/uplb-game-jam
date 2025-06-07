@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj0k364owvbgl"]
+
+[ext_resource type="Texture2D" uid="uid://cb0cbyfkrp6dc" path="res://assets/tallfence.png" id="1_xohqc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hytc5"]
+size = Vector3(3, 2.91986, 0.4)
+
+[node name="tallfence" type="Area3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0438395, 2.25287, 0.0329576)
+texture = ExtResource("1_xohqc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0127752, 1.57683, -0.155286)
+shape = SubResource("BoxShape3D_hytc5")

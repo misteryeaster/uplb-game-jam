@@ -9,11 +9,11 @@
 [ext_resource type="Script" uid="uid://bnde3arjtnajm" path="res://ui/hud.gd" id="6_jkv2x"]
 [ext_resource type="Script" uid="uid://d3xpsei8r7tgi" path="res://ui/health_bar.gd" id="7_jbj1t"]
 [ext_resource type="Script" uid="uid://b63scijqlvwg" path="res://gameplay/player/camera.gd" id="7_ya4ey"]
-[ext_resource type="Script" path="res://ui/heat_bar.gd" id="8_muem4"]
-[ext_resource type="Script" path="res://ui/sting_overlay.gd" id="9_a8y0u"]
+[ext_resource type="Script" uid="uid://iwjpu7uprc1u" path="res://ui/heat_bar.gd" id="8_muem4"]
+[ext_resource type="Script" uid="uid://cqj2rjeka77pl" path="res://ui/sting_overlay.gd" id="9_a8y0u"]
 [ext_resource type="Script" uid="uid://dg8svd85sb833" path="res://handlers/heat_handler.gd" id="9_jbj1t"]
 [ext_resource type="PackedScene" uid="uid://chafxp1mxwqlm" path="res://player/player.tscn" id="12_trceg"]
-[ext_resource type="Script" path="res://handlers/chunk_handler.gd" id="15_muem4"]
+[ext_resource type="Script" uid="uid://b7816nyh3oiad" path="res://handlers/chunk_handler.gd" id="15_muem4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_85g3d"]
 sky_top_color = Color(0.702953, 0.298296, 0.332004, 1)
