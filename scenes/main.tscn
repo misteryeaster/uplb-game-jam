@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bkhxvwy5g5sy8"]
+[gd_scene load_steps=23 format=3 uid="uid://bkhxvwy5g5sy8"]
 
 [ext_resource type="Script" uid="uid://2jcbf6tmc0vk" path="res://handlers/ui_handler.gd" id="1_0wfyh"]
 [ext_resource type="Script" uid="uid://cajxbpi4jdr5p" path="res://ui/play_button.gd" id="2_sugp2"]
@@ -10,13 +10,15 @@
 [ext_resource type="Script" uid="uid://d3xpsei8r7tgi" path="res://ui/health_bar.gd" id="7_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://jju3vechvkxk" path="res://assets/yes.png" id="7_o6xl0"]
 [ext_resource type="Script" uid="uid://b63scijqlvwg" path="res://gameplay/camera.gd" id="7_ya4ey"]
-[ext_resource type="Script" uid="uid://c2c3dugujwx7n" path="res://gameplay/player.gd" id="8_tipki"]
+[ext_resource type="Script" uid="uid://c2c3dugujwx7n" path="res://player/player.gd" id="8_tipki"]
 [ext_resource type="Script" uid="uid://b7816nyh3oiad" path="res://gameplay/platforms.gd" id="9_choun"]
-[ext_resource type="Script" uid="uid://64vjw851i02y" path="res://gameplay/player/hurtbox.gd" id="10_eb6dy"]
-[ext_resource type="Script" uid="uid://cj6lyt4v7oex5" path="res://gameplay/player/health.gd" id="11_trceg"]
+[ext_resource type="Script" uid="uid://64vjw851i02y" path="res://player/hurtbox.gd" id="10_eb6dy"]
+[ext_resource type="Script" uid="uid://cj6lyt4v7oex5" path="res://player/health.gd" id="11_trceg"]
+[ext_resource type="PackedScene" uid="uid://bkhncyqw1m2xf" path="res://gameplay/water_boost.tscn" id="15_jkv2x"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_85g3d"]
-sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+sky_top_color = Color(0.702953, 0.298296, 0.332004, 1)
+sky_horizon_color = Color(0.831865, 0.624935, 0.410068, 1)
 ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 
 [sub_resource type="Sky" id="Sky_choun"]
@@ -34,6 +36,8 @@ glow_enabled = true
 bg_color = Color(0.705882, 0.2, 0.290196, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ya4ey"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a8y0u"]
 
 [node name="Main" type="Node3D"]
 
@@ -169,10 +173,14 @@ transform = Transform3D(1, 0, 0, 0, 0.987373, 0.158416, 0, -0.158416, 0.987373, 
 script = ExtResource("7_ya4ey")
 initial_pos = Vector3(0, 3.5, 3.5)
 
-[node name="Player" type="Node3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="Player" type="CharacterBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 script = ExtResource("8_tipki")
-initial_position = Vector3(0, 1, 0)
+movement_speed = 1000.0
+jump_height = 4.0
+rise_time = 0.6
+fall_time = 0.5
+initial_position = Vector3(0, 2, 0)
 
 [node name="Sprite3D" type="Sprite3D" parent="World/Player"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -190,10 +198,19 @@ shape = SubResource("CapsuleShape3D_ya4ey")
 script = ExtResource("11_trceg")
 max_health = 10.0
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Player"]
+shape = SubResource("CapsuleShape3D_a8y0u")
+
 [node name="Obstacles" type="Node3D" parent="World"]
 
-[node name="Platforms" type="Node3D" parent="World"]
+[node name="Chunks" type="Node3D" parent="World"]
 script = ExtResource("9_choun")
+
+[node name="WaterBoost" parent="." instance=ExtResource("15_jkv2x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.59784, 1.5, -9.8607)
+
+[node name="WaterBoost2" parent="." instance=ExtResource("15_jkv2x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52341, 1.5, -17.408)
 
 [connection signal="game_start_requested" from="UI/MainMenu/PlayButton" to="Handlers/Game" method="_on_play_button_game_start_requested"]
 [connection signal="pressed" from="UI/MainMenu/PlayButton" to="UI/MainMenu/PlayButton" method="_on_pressed"]
@@ -209,10 +226,7 @@ script = ExtResource("9_choun")
 [connection signal="just_reset" from="World/Player" to="World/Camera3D" method="_on_player_just_reset"]
 [connection signal="just_reset" from="World/Player" to="World/Player/Health" method="_on_player_just_reset"]
 [connection signal="area_entered" from="World/Player/Hurtbox" to="World/Player/Hurtbox" method="_on_area_entered"]
-[connection signal="hurt" from="World/Player/Hurtbox" to="UI" method="_on_hurtbox_hurt"]
-[connection signal="hurt" from="World/Player/Hurtbox" to="World/Player" method="_on_hurtbox_hurt"]
+[connection signal="hurt" from="World/Player/Hurtbox" to="World/Camera3D" method="_on_hurtbox_hurt"]
 [connection signal="hurt" from="World/Player/Hurtbox" to="World/Player/Health" method="_on_hurtbox_hurt"]
 [connection signal="depleted" from="World/Player/Health" to="World/Player" method="_on_health_depleted"]
 [connection signal="health_percentage_changed" from="World/Player/Health" to="UI/HUD/HealthBar" method="_on_health_health_percentage_changed"]
-[connection signal="player_hurt" from="World/Player/Health" to="UI" method="_on_health_player_hurt"]
-[connection signal="player_hurt" from="World/Player/Health" to="World/Camera3D" method="_on_health_player_hurt"]

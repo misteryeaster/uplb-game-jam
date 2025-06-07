@@ -56,6 +56,5 @@ func _on_player_just_reset() -> void:
 	if player:
 		offset = initial_pos - player.global_position
 
-func _on_health_player_hurt(damage):
-	# Add screen shake when player gets hurt
+func _on_hurtbox_hurt(damage) -> void:
 	shake_timer = 0.5 + (damage * 0.1)

@@ -17,7 +17,3 @@ func _on_health_player_hurt(damage):
 	damage_tween = create_tween()
 	damage_overlay.color = Color(1, 0, 0, 0.4)
 	damage_tween.tween_property(damage_overlay, "color", Color(1, 0, 0, 0), 0.8)
-
-
-func _on_hurtbox_hurt():
-	pass # Replace with function body.

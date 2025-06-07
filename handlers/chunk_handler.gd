@@ -13,6 +13,7 @@ var base_chunk = preload("res://gameplay/chunk.tscn")
 @onready var known_current_chunk: int = 0
 
 func create_chunk(index: int):
+	print(index)
 	var new_chunk: Node3D = base_chunk.instantiate()
 	
 	new_chunk.position = Vector3.FORWARD * index * chunk_size

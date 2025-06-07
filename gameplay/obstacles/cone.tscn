@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3wojpu7gleck"]
+
+[ext_resource type="Script" uid="uid://b5mcgppsvx7xv" path="res://gameplay/obstacle.gd" id="1_wlxt7"]
+[ext_resource type="Texture2D" uid="uid://bprxagvi3hbmt" path="res://assets/cone.png" id="2_wlxt7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m6o0d"]
+size = Vector3(1.25, 1, 0.4)
+
+[node name="Cone" type="Area3D"]
+collision_layer = 4
+script = ExtResource("1_wlxt7")
+damage = 1.0
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0438395, 1.21665, 0.0329576)
+texture = ExtResource("2_wlxt7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0127752, 0.616902, 0)
+shape = SubResource("BoxShape3D_m6o0d")
