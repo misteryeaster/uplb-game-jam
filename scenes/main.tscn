@@ -9,11 +9,11 @@
 [ext_resource type="Script" uid="uid://bnde3arjtnajm" path="res://ui/hud.gd" id="6_jkv2x"]
 [ext_resource type="Script" uid="uid://d3xpsei8r7tgi" path="res://ui/health_bar.gd" id="7_jbj1t"]
 [ext_resource type="Script" uid="uid://b63scijqlvwg" path="res://gameplay/player/camera.gd" id="7_ya4ey"]
-[ext_resource type="Script" uid="uid://iwjpu7uprc1u" path="res://ui/heat_bar.gd" id="8_muem4"]
-[ext_resource type="Script" uid="uid://cqj2rjeka77pl" path="res://ui/sting_overlay.gd" id="9_a8y0u"]
+[ext_resource type="Script" path="res://ui/heat_bar.gd" id="8_muem4"]
+[ext_resource type="Script" path="res://ui/sting_overlay.gd" id="9_a8y0u"]
 [ext_resource type="Script" uid="uid://dg8svd85sb833" path="res://handlers/heat_handler.gd" id="9_jbj1t"]
 [ext_resource type="PackedScene" uid="uid://chafxp1mxwqlm" path="res://player/player.tscn" id="12_trceg"]
-[ext_resource type="Script" uid="uid://b7816nyh3oiad" path="res://handlers/chunk_handler.gd" id="15_muem4"]
+[ext_resource type="Script" path="res://handlers/chunk_handler.gd" id="15_muem4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_85g3d"]
 sky_top_color = Color(0.702953, 0.298296, 0.332004, 1)
@@ -33,6 +33,57 @@ glow_enabled = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jbj1t"]
 bg_color = Color(0.876864, 0.363632, 0.225339, 1)
+
+[sub_resource type="Animation" id="Animation_jkv2x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/HUD/StingOverlay:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(252, 241)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/HUD/StingOverlay:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/HUD/StingOverlay:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/HUD/StingOverlay:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.233276]
+}
 
 [sub_resource type="Animation" id="Animation_a8y0u"]
 resource_name = "default"
@@ -84,57 +135,6 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [-0.233276, -0.371661, -0.392222, -0.233276]
-}
-
-[sub_resource type="Animation" id="Animation_jkv2x"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("UI/HUD/StingOverlay:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(252, 241)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("UI/HUD/StingOverlay:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("UI/HUD/StingOverlay:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("UI/HUD/StingOverlay:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-0.233276]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jkv2x"]
@@ -286,10 +286,10 @@ text = "HEALTH"
 
 [node name="StingOverlay" type="Label" parent="UI/HUD"]
 layout_mode = 0
-offset_left = 1206.0
-offset_top = -156.0
-offset_right = 1781.0
-offset_bottom = 152.0
+offset_left = 252.0
+offset_top = 241.0
+offset_right = 827.0
+offset_bottom = 549.0
 rotation = -0.233276
 theme_override_colors/font_color = Color(0.935365, 0, 0.127837, 1)
 theme_override_fonts/font = ExtResource("3_trceg")

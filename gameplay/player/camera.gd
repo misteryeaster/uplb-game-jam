@@ -1,7 +1,6 @@
 extends Camera3D
 
-@export var follow_speed: float = 5.0
-@export var x_smoothing: float = 2.0
+@export var x_smoothing: float = 15.0  # Increased for faster lane switching
 @export var shake_intensity: float = 0.3
 
 @onready var game_started: bool = false
@@ -25,9 +24,9 @@ func _physics_process(delta: float) -> void:
 	# Calculate base target position
 	var target_pos = player.global_position + offset
 	
-	# Update base position smoothly
-	base_position.z = lerp(base_position.z, target_pos.z, follow_speed * delta)
-	base_position.x = lerp(base_position.x, target_pos.x, x_smoothing * delta)
+	# Update base position - NO smoothing for Z (forward movement)
+	base_position.z = target_pos.z  # Move instantly with player forward movement
+	base_position.x = lerp(base_position.x, target_pos.x, x_smoothing * delta)  # Fast smoothing for lane switching
 	base_position.y = target_pos.y  # Keep Y from offset
 	
 	# Apply shake as offset from base position
