@@ -6,7 +6,7 @@ extends Node3D
 
 @export var chunk_size: float = 100
 
-var base_chunk = preload("res://gameplay/chunk.tscn")
+var base_chunk = preload("res://gameplay/chunks/chunk.tscn")
 
 @onready var player = get_parent().get_node("Player")
 

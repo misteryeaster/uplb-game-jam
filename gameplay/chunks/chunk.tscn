@@ -1,0 +1,203 @@
+[gd_scene load_steps=12 format=3 uid="uid://d0yef0m56kkgr"]
+
+[ext_resource type="Texture2D" uid="uid://djy4iluvptlmj" path="res://assets/lamppost.png" id="3_8ii2n"]
+[ext_resource type="Texture2D" uid="uid://coykve2dw0o3i" path="res://assets/powerline.png" id="3_m5fqo"]
+[ext_resource type="Texture2D" uid="uid://brun1rhsn0t00" path="res://assets/highway.png" id="4_s8cbt"]
+[ext_resource type="Texture2D" uid="uid://b7itsqvnlxg33" path="res://assets/sidewalk.png" id="5_yu6km"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5pjsp"]
+diffuse_mode = 1
+specular_mode = 1
+albedo_color = Color(0.716296, 0.716296, 0.716296, 1)
+albedo_texture = ExtResource("4_s8cbt")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_tefeu"]
+material = SubResource("StandardMaterial3D_5pjsp")
+size = Vector2(10, 25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0x5u4"]
+size = Vector3(10, 1, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pk7r2"]
+albedo_texture = ExtResource("5_yu6km")
+
+[sub_resource type="BoxMesh" id="BoxMesh_m6o0d"]
+size = Vector3(2, 1, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tw8ii"]
+albedo_color = Color(0.417257, 0.417257, 0.417257, 1)
+albedo_texture = ExtResource("5_yu6km")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pk7r2"]
+material = SubResource("StandardMaterial3D_tw8ii")
+size = Vector2(2, 25)
+
+[node name="Chunk" type="Node3D"]
+
+[node name="Obstacles" type="Node3D" parent="."]
+
+[node name="Decor" type="Node3D" parent="."]
+
+[node name="LeftStreetLight" type="Node3D" parent="Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98158, 0, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="Decor/LeftStreetLight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.841788, 2.83288, 0)
+texture = ExtResource("3_8ii2n")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Decor/LeftStreetLight"]
+transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
+light_energy = 5.09
+spot_range = 17.51
+
+[node name="RightStreetLight" type="Node3D" parent="Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.91702, 0, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="Decor/RightStreetLight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.806036, 2.83288, 0)
+flip_h = true
+texture = ExtResource("3_8ii2n")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Decor/RightStreetLight"]
+transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
+light_energy = 5.09
+spot_range = 17.51
+
+[node name="LeftStreetLight2" type="Node3D" parent="Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98158, 0, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="Decor/LeftStreetLight2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.841788, 2.83288, 0)
+texture = ExtResource("3_8ii2n")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Decor/LeftStreetLight2"]
+transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
+light_energy = 5.09
+spot_range = 17.51
+
+[node name="RightStreetLight2" type="Node3D" parent="Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.91702, 0, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="Decor/RightStreetLight2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.806036, 2.83288, 0)
+flip_h = true
+texture = ExtResource("3_8ii2n")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Decor/RightStreetLight2"]
+transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
+light_energy = 5.09
+spot_range = 17.51
+
+[node name="LeftStreetLight3" type="Node3D" parent="Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98158, 0, -50)
+
+[node name="Sprite3D" type="Sprite3D" parent="Decor/LeftStreetLight3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.841788, 2.83288, 0)
+texture = ExtResource("3_8ii2n")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Decor/LeftStreetLight3"]
+transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
+light_energy = 5.09
+spot_range = 17.51
+
+[node name="RightStreetLight3" type="Node3D" parent="Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.91702, 0, -50)
+
+[node name="Sprite3D" type="Sprite3D" parent="Decor/RightStreetLight3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.806036, 2.83288, 0)
+flip_h = true
+texture = ExtResource("3_8ii2n")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Decor/RightStreetLight3"]
+transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
+light_energy = 5.09
+spot_range = 17.51
+
+[node name="Powerline" type="Node3D" parent="Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.21279, 0, -2.12344)
+
+[node name="Sprite3D" type="Sprite3D" parent="Decor/Powerline"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28683, 3.1925, 0)
+texture = ExtResource("3_m5fqo")
+
+[node name="Platform" type="StaticBody3D" parent="."]
+
+[node name="Platform" type="MeshInstance3D" parent="Platform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.5)
+mesh = SubResource("PlaneMesh_tefeu")
+skeleton = NodePath("../..")
+
+[node name="Platform2" type="MeshInstance3D" parent="Platform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -37.5)
+mesh = SubResource("PlaneMesh_tefeu")
+skeleton = NodePath("../..")
+
+[node name="Platform3" type="MeshInstance3D" parent="Platform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 37.5)
+mesh = SubResource("PlaneMesh_tefeu")
+skeleton = NodePath("../..")
+
+[node name="Platform4" type="MeshInstance3D" parent="Platform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.5)
+mesh = SubResource("PlaneMesh_tefeu")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_0x5u4")
+
+[node name="LeftSideWalk" type="Node3D" parent="Platform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+
+[node name="SidewalkMesh" type="MeshInstance3D" parent="Platform/LeftSideWalk"]
+material_override = SubResource("StandardMaterial3D_pk7r2")
+mesh = SubResource("BoxMesh_m6o0d")
+skeleton = NodePath("../..")
+
+[node name="SidewalkTexture" type="MeshInstance3D" parent="Platform/LeftSideWalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51, 13)
+mesh = SubResource("PlaneMesh_pk7r2")
+skeleton = NodePath("../..")
+
+[node name="SidewalkTexture2" type="MeshInstance3D" parent="Platform/LeftSideWalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51, 38)
+mesh = SubResource("PlaneMesh_pk7r2")
+skeleton = NodePath("../..")
+
+[node name="SidewalkTexture3" type="MeshInstance3D" parent="Platform/LeftSideWalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51, -37)
+mesh = SubResource("PlaneMesh_pk7r2")
+skeleton = NodePath("../..")
+
+[node name="SidewalkTexture4" type="MeshInstance3D" parent="Platform/LeftSideWalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51, -12)
+mesh = SubResource("PlaneMesh_pk7r2")
+skeleton = NodePath("../..")
+
+[node name="RightSidewalk" type="Node3D" parent="Platform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+
+[node name="SidewalkMesh" type="MeshInstance3D" parent="Platform/RightSidewalk"]
+material_override = SubResource("StandardMaterial3D_pk7r2")
+mesh = SubResource("BoxMesh_m6o0d")
+skeleton = NodePath("../..")
+
+[node name="SidewalkTexture" type="MeshInstance3D" parent="Platform/RightSidewalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51, 13)
+mesh = SubResource("PlaneMesh_pk7r2")
+skeleton = NodePath("../..")
+
+[node name="SidewalkTexture2" type="MeshInstance3D" parent="Platform/RightSidewalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51, 38)
+mesh = SubResource("PlaneMesh_pk7r2")
+skeleton = NodePath("../..")
+
+[node name="SidewalkTexture3" type="MeshInstance3D" parent="Platform/RightSidewalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51, -37)
+mesh = SubResource("PlaneMesh_pk7r2")
+skeleton = NodePath("../..")
+
+[node name="SidewalkTexture4" type="MeshInstance3D" parent="Platform/RightSidewalk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51, -12)
+mesh = SubResource("PlaneMesh_pk7r2")
+skeleton = NodePath("../..")

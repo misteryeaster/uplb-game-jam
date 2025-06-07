@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cxdjd3simd81e"]
 
-[ext_resource type="Script" uid="uid://b5mcgppsvx7xv" path="res://gameplay/obstacle.gd" id="1_swsof"]
+[ext_resource type="Script" uid="uid://b5mcgppsvx7xv" path="res://gameplay/obstacles/obstacle.gd" id="1_swsof"]
 [ext_resource type="Texture2D" uid="uid://cfhxhwexoo2v2" path="res://bench1.png" id="2_lgx48"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m6o0d"]

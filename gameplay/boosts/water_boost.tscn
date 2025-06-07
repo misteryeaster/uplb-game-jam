@@ -69,7 +69,7 @@ collision_mask = 0
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 sprite_frames = SubResource("SpriteFrames_einbe")
 autoplay = "default"
-frame_progress = 0.894258
+frame_progress = 0.594201
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_4kpvn")
