@@ -9,14 +9,14 @@
 [ext_resource type="Script" uid="uid://bnde3arjtnajm" path="res://ui/hud.gd" id="6_jkv2x"]
 [ext_resource type="Script" uid="uid://d3xpsei8r7tgi" path="res://ui/health_bar.gd" id="7_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://jju3vechvkxk" path="res://assets/yes.png" id="7_o6xl0"]
-[ext_resource type="Script" uid="uid://b63scijqlvwg" path="res://gameplay/player/camera.gd" id="7_ya4ey"]
-[ext_resource type="Script" uid="uid://iwjpu7uprc1u" path="res://ui/heat_bar.gd" id="8_muem4"]
+[ext_resource type="Script" path="res://gameplay/player/camera.gd" id="7_ya4ey"]
+[ext_resource type="Script" path="res://ui/heat_bar.gd" id="8_muem4"]
 [ext_resource type="Script" uid="uid://c2c3dugujwx7n" path="res://player/player.gd" id="8_tipki"]
-[ext_resource type="Script" uid="uid://dg8svd85sb833" path="res://handlers/heat_handler.gd" id="9_jbj1t"]
+[ext_resource type="Script" path="res://handlers/heat_handler.gd" id="9_jbj1t"]
 [ext_resource type="Script" uid="uid://64vjw851i02y" path="res://player/hurtbox.gd" id="10_eb6dy"]
 [ext_resource type="Script" uid="uid://cj6lyt4v7oex5" path="res://player/health.gd" id="11_trceg"]
 [ext_resource type="PackedScene" uid="uid://bkhncyqw1m2xf" path="res://gameplay/boosts/water_boost.tscn" id="15_jkv2x"]
-[ext_resource type="Script" uid="uid://b7816nyh3oiad" path="res://handlers/chunk_handler.gd" id="15_muem4"]
+[ext_resource type="Script" path="res://gameplay/player/chunk_handler.gd" id="15_muem4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_85g3d"]
 sky_top_color = Color(0.702953, 0.298296, 0.332004, 1)
