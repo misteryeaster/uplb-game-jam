@@ -364,16 +364,16 @@ script = ExtResource("7_ya4ey")
 base_movement_speed = 1300.0
 heat_bar_node = NodePath("../../Handlers/Heat")
 
-[node name="Node3D" type="Node3D" parent="World/Player"]
+[node name="speedParticle" type="Node3D" parent="World/Player"]
 transform = Transform3D(3.5661, 0, 0, 0, -0.880151, 0, 0, 0, 1, 0, 0, -12.8454)
 
-[node name="windtrail1" type="GPUParticles3D" parent="World/Player/Node3D"]
+[node name="windtrail1" type="GPUParticles3D" parent="World/Player/speedParticle"]
 transform = Transform3D(0.145865, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.59847)
 amount = 50
 process_material = SubResource("ParticleProcessMaterial_muem4")
 draw_pass_1 = SubResource("CylinderMesh_0ld40")
 
-[node name="windtrail2" type="GPUParticles3D" parent="World/Player/Node3D"]
+[node name="windtrail2" type="GPUParticles3D" parent="World/Player/speedParticle"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00462341, 0.0443983, -1.60892)
 amount = 50
 speed_scale = 1.65
