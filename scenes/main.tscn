@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bkhxvwy5g5sy8"]
+[gd_scene load_steps=40 format=3 uid="uid://bkhxvwy5g5sy8"]
 
 [ext_resource type="Script" uid="uid://2jcbf6tmc0vk" path="res://handlers/ui_handler.gd" id="1_0wfyh"]
 [ext_resource type="Script" uid="uid://3mow7dicwx1" path="res://scenes/world_environment.gd" id="1_jkv2x"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://by73eaucox880" path="res://ui/sting_bar.gd" id="11_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://ecc5ppuybd26" path="res://assets/circle.png" id="12_muem4"]
 [ext_resource type="PackedScene" uid="uid://chafxp1mxwqlm" path="res://player/player.tscn" id="12_trceg"]
+[ext_resource type="Script" uid="uid://ckfgl0vwgakrs" path="res://ui/timer.gd" id="13_dp3eg"]
 [ext_resource type="Script" uid="uid://b7816nyh3oiad" path="res://handlers/chunk_handler.gd" id="15_muem4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_85g3d"]
@@ -192,6 +193,9 @@ scale_curve = SubResource("CurveTexture_mv2s2")
 emission_curve = SubResource("CurveTexture_0ld40")
 hue_variation_min = -0.92
 hue_variation_max = -0.92
+
+[sub_resource type="LabelSettings" id="LabelSettings_dp3eg"]
+font_size = 40
 
 [sub_resource type="Curve" id="Curve_jkv2x"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.272059, 1), 0.0, 0.0, 0, 0, Vector2(0.463235, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -418,10 +422,38 @@ amount = 50
 texture = ExtResource("12_muem4")
 process_material = SubResource("ParticleProcessMaterial_yc10j")
 
+[node name="Timer" type="Control" parent="UI/HUD"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("13_dp3eg")
+
+[node name="Timer" type="Label" parent="UI/HUD/Timer"]
+layout_mode = 0
+offset_left = 547.0
+offset_top = 117.0
+offset_right = 649.0
+offset_bottom = 172.0
+text = "00:00"
+label_settings = SubResource("LabelSettings_dp3eg")
+
+[node name="Label2" type="Label" parent="UI/HUD/Timer"]
+layout_mode = 0
+offset_left = 371.0
+offset_top = 97.0
+offset_right = 1181.0
+offset_bottom = 152.0
+scale = Vector2(0.560001, 0.56)
+text = "Go to the station before the time runs out"
+label_settings = SubResource("LabelSettings_dp3eg")
+
 [node name="Handlers" type="Node3D" parent="."]
 
-[node name="Game" type="Node3D" parent="Handlers"]
+[node name="Game" type="Node3D" parent="Handlers" node_paths=PackedStringArray("time_label")]
 script = ExtResource("4_jyhfs")
+level_time_limit = 150.0
+time_label = NodePath("../../UI/HUD/Timer/Timer")
 
 [node name="Heat" type="Node3D" parent="Handlers"]
 script = ExtResource("9_jbj1t")
@@ -435,12 +467,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00172043, 0.0382609, 0.0103
 transform = Transform3D(1, 0, 0, 0, 0.987373, 0.158416, 0, -0.158416, 0.987373, 0, 2.8382, 2.14677)
 script = ExtResource("7_ya4ey")
 
-[node name="Player" parent="World" node_paths=PackedStringArray("heat_bar_node", "energy_buff_bar") instance=ExtResource("12_trceg")]
+[node name="Player" parent="World" node_paths=PackedStringArray("heat_bar_node", "energy_buff_bar", "chunk_generator") instance=ExtResource("12_trceg")]
 base_movement_speed = 1300.0
 knockback_force = 600.0
 knockback_recovery_time = 3.0
 heat_bar_node = NodePath("../../Handlers/Heat")
 energy_buff_bar = NodePath("../../UI/HUD/StingBar")
+chunk_generator = NodePath("../Chunks")
 
 [node name="speedParticle" type="Node3D" parent="World/Player"]
 transform = Transform3D(3.5661, 0, 0, 0, -0.880151, 0, 0, 0, 1, 0, 0, -12.8454)

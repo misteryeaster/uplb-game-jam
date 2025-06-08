@@ -6,6 +6,7 @@ signal cooled
 signal health_changed
 signal health_percentage_changed
 signal picked_up
+signal won  # New signal for winning the game
 
 @export_category("movement")
 # Rename this to clearly indicate it's the base speed
@@ -43,6 +44,9 @@ signal picked_up
 
 @export_category("UI")
 @export var energy_buff_bar: Control
+
+# Add this export variable to connect to the chunk generator
+@export var chunk_generator: Node3D
 
 var base_effect_timer: PackedScene = preload("res://gameplay/player/effect_timer.tscn")
 
@@ -96,6 +100,9 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if (!game_started):
 		return
+
+	# Check win condition first
+	check_win_condition()
 
 	# Handle knockback state first
 	_handle_knockback(delta)
@@ -336,3 +343,15 @@ func _on_heat_bar_heat_changed_by_player(new_heat_value: float) -> void:
 	# At 0% heat, multiplier is 1.0 (full speed)
 	# At 100% heat, multiplier is min_speed_factor_at_max_heat
 	_heat_speed_multiplier = lerp(1.0, min_speed_factor_at_max_heat, heat_percentage)
+
+func check_win_condition():
+	if chunk_generator and chunk_generator.has_method("has_player_reached_end"):
+		if chunk_generator.has_player_reached_end():
+			game_started = false  # Stop the game
+			$Footsteps.stop()
+			won.emit()  # Emit the win signal
+			print("Player reached the end! You won!")
+			await get_tree().create_timer(5).timeout
+			
+			died.emit()
+			reset()
