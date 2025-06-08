@@ -6,7 +6,7 @@ signal cooled
 signal health_changed
 signal health_percentage_changed
 signal picked_up
-signal won  # New signal for winning the game
+signal player_won  # New signal for winning the game
 
 @export_category("movement")
 # Rename this to clearly indicate it's the base speed
@@ -349,9 +349,6 @@ func check_win_condition():
 		if chunk_generator.has_player_reached_end():
 			game_started = false  # Stop the game
 			$Footsteps.stop()
-			won.emit()  # Emit the win signal
+			player_won.emit()  # Emit the win signal
 			print("Player reached the end! You won!")
-			await get_tree().create_timer(5).timeout
 			
-			died.emit()
-			reset()

@@ -26,8 +26,13 @@ func _ready():
 	# Connect to our own time_changed signal to update the label
 	time_changed.connect(_on_time_changed)
 	
+	# Connect to player signals (adjust the path to your player node)
+	var player = get_node("/root/Main/World/Player")  # Adjust this path to your player
+	if player:
+		player.player_won.connect(_on_player_won)
+	
 	# Update label initially
-	_update_time_label()
+	update_time_label()
 
 func _process(delta):
 	# Only process timer if game is ongoing and timer is active
@@ -49,7 +54,7 @@ func _process(delta):
 		_on_time_up()
 
 # Update the time label display
-func _update_time_label():
+func update_time_label():
 	if not time_label:
 		return
 	
@@ -59,7 +64,7 @@ func _update_time_label():
 
 # Signal handler for time changes
 func _on_time_changed(remaining_time: float):
-	_update_time_label()
+	update_time_label()
 
 func is_game_ongoing() -> bool:
 	return game_ongoing
@@ -75,7 +80,7 @@ func reset_timer():
 	current_time = level_time_limit
 	timer_active = false
 	warning_shown = false
-	_update_time_label()  # Update label when resetting
+	update_time_label()  # Update label when resetting
 
 func get_remaining_time() -> float:
 	return current_time
@@ -93,10 +98,18 @@ func exit():
 	get_tree().quit()
 
 func start() -> void:
+	print("=== START() CALLED ===")
+	print("Current game_ongoing state: ", game_ongoing)
+	print("Current timer_active state: ", timer_active)
+	print("Current time: ", current_time)
+	
 	if (game_ongoing):
 		printerr("Game is already ongoing?")
 		return
-		
+	
+	# Reset game state completely
+	reset_game_state()
+	
 	# Reset and start timer
 	reset_timer()
 	start_timer()
@@ -104,9 +117,15 @@ func start() -> void:
 	game_started.emit()
 	game_ongoing = true
 	
-	print("Game started.")
+	print("Game started successfully!")
+	print("New game_ongoing state: ", game_ongoing)
+	print("New timer_active state: ", timer_active)
+	print("New current_time: ", current_time)
 
 func end() -> void:
+	print("=== END() CALLED ===")
+	print("Current game_ongoing state: ", game_ongoing)
+	
 	if (!game_ongoing):
 		printerr("Game is not ongoing?")
 		return
@@ -117,7 +136,79 @@ func end() -> void:
 	game_ended.emit()
 	game_ongoing = false
 	
-	print("Game ended.")
+	print("Game ended successfully!")
+	print("New game_ongoing state: ", game_ongoing)
+
+# New function to reset all game state
+func reset_game_state():
+	print("=== RESETTING GAME STATE ===")
+	
+	# Reset timer state
+	current_time = level_time_limit
+	timer_active = false
+	warning_shown = false
+	
+	# Reset player state (adjust path to your player)
+	var player = get_node("/root/Main/World/Player")
+	if player:
+		print("Player found, attempting to reset...")
+		if player.has_method("reset_player"):
+			player.reset_player()
+			print("Player reset method called")
+		else:
+			print("WARNING: Player doesn't have reset_player() method")
+			# Manual reset of common player properties
+			if "global_position" in player:
+				# Try to find a spawn point or use a default position
+				var spawn_point = get_node_or_null("/root/Main/World/SpawnPoint")
+				if spawn_point:
+					player.global_position = spawn_point.global_position
+					print("Reset player to spawn point: ", spawn_point.global_position)
+				else:
+					# Fallback to a default starting position (adjust as needed)
+					player.global_position = Vector3(0, 0, 0)  # or Vector2(0, 0) for 2D
+					print("Reset player to default position (0,0,0)")
+			
+			if "has_won" in player:
+				player.has_won = false
+				print("Reset player has_won to false")
+			
+			# Reset other common player states
+			if "velocity" in player:
+				player.velocity = Vector3.ZERO  # or Vector2.ZERO for 2D
+				print("Reset player velocity")
+	else:
+		print("WARNING: Player node not found!")
+	
+	# Reset level objects (collectibles, enemies, etc.)
+	reset_level_objects()
+	
+# Reset level objects like collectibles, enemies, etc.
+func reset_level_objects():
+	print("Resetting level objects...")
+	
+	# Reset collectibles (adjust path as needed)
+	var collectibles = get_tree().get_nodes_in_group("collectibles")
+	for collectible in collectibles:
+		if collectible.has_method("reset"):
+			collectible.reset()
+		elif "visible" in collectible:
+			collectible.visible = true
+		elif "show" in collectible:
+			collectible.show()
+	
+	# Reset enemies (adjust path as needed)
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	for enemy in enemies:
+		if enemy.has_method("reset"):
+			enemy.reset()
+	
+	# Reset goal/end trigger (make sure it can be triggered again)
+	var goal = get_tree().get_first_node_in_group("goal")
+	if goal and goal.has_method("reset"):
+		goal.reset()
+	
+	print("Level objects reset completed.")
 
 # Existing signal handlers
 func _on_play_button_game_start_requested() -> void:
@@ -129,13 +220,21 @@ func _on_exit_button_game_exit_requested() -> void:
 func _on_player_died() -> void:
 	end()
 
-# New signal handlers for win condition
+# Fixed signal handler for win condition
 func _on_player_won() -> void:
+	print("🎉 PLAYER WON SIGNAL RECEIVED! 🎉")
 	print("Player won with ", current_time, " seconds remaining!")
+	stop_timer()  # Stop the timer immediately when player wins
+	
+	# Wait 5 seconds before ending the game
+	await get_tree().create_timer(5.0).timeout
 	end()
 
 # Optional: Add restart functionality
 func restart() -> void:
 	if game_ongoing:
 		end()
+	
+	# Wait a frame to ensure end() is processed
+	await get_tree().process_frame
 	start()
