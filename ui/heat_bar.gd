@@ -19,17 +19,17 @@ func update_bar_color(percent: float):
 	var text_color: Color
 	
 	if percent > 70:
-		bar_color = Color(0.2, 0.8, 0.2)  # Green
+		bar_color = Color.ORANGE_RED
 		text_color = Color.WHITE
 	elif percent > 40:
-		bar_color = Color(0.9, 0.8, 0.1)  # Yellow
+		bar_color = Color.ORANGE
 		text_color = Color.BLACK  # Black text on yellow
 	elif percent > 20:
-		bar_color = Color(1.0, 0.5, 0.1)  # Orange
-		text_color = Color.WHITE
+		bar_color = Color.YELLOW
+		text_color = Color.BLACK
 	else:
-		bar_color = Color(0.9, 0.2, 0.2)  # Red
-		text_color = Color.WHITE
+		bar_color = Color.LIGHT_YELLOW
+		text_color = Color.BLACK
 		if !is_pulsing:
 			start_critical_pulse()
 	

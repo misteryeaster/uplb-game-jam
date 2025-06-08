@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://chafxp1mxwqlm"]
+[gd_scene load_steps=26 format=3 uid="uid://chafxp1mxwqlm"]
 
 [ext_resource type="Script" uid="uid://c2c3dugujwx7n" path="res://player/player.gd" id="1_qjkh3"]
 [ext_resource type="Script" uid="uid://64vjw851i02y" path="res://player/hurtbox.gd" id="2_g6k8r"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://cj6lyt4v7oex5" path="res://player/health.gd" id="4_rgyib"]
 [ext_resource type="Texture2D" uid="uid://dqnfti44c2kou" path="res://assets/playerRunning.png" id="5_hg6s5"]
 [ext_resource type="AudioStream" uid="uid://ci0hfmmpi2w46" path="res://assets/sfx/foosteps.wav" id="6_g6k8r"]
+[ext_resource type="Texture2D" uid="uid://d1q3p2f3bk7bs" path="res://assets/cursing.png" id="7_boad6"]
+[ext_resource type="Script" uid="uid://7otuyyimegu3" path="res://player/cursing.gd" id="7_rgyib"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ya4ey"]
 
@@ -57,6 +59,102 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_rgyib"]
+atlas = ExtResource("7_boad6")
+region = Rect2(0, 0, 300, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hg6s5"]
+atlas = ExtResource("7_boad6")
+region = Rect2(300, 0, 300, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8t03j"]
+atlas = ExtResource("7_boad6")
+region = Rect2(600, 0, 300, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ieo8"]
+atlas = ExtResource("7_boad6")
+region = Rect2(900, 0, 300, 200)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ebec5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rgyib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hg6s5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8t03j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ieo8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="Animation" id="Animation_rgyib"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite3D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.5, 0.5, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_boad6"]
+resource_name = "curse"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite3D:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.366667, 0.566667, 0.7, 0.866667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.5, 0.5, 0.5), Vector3(0.59, 0.59, 0.59), Vector3(0.405, 0.405, 0.405), Vector3(0.59, 0.59, 0.59), Vector3(0.405, 0.405, 0.405), Vector3(0.5, 0.5, 0.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hg6s5"]
+_data = {
+&"RESET": SubResource("Animation_rgyib"),
+&"curse": SubResource("Animation_boad6")
+}
+
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_qjkh3")
 jump_height = 4.0
@@ -71,6 +169,10 @@ script = ExtResource("2_g6k8r")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
 shape = SubResource("CapsuleShape3D_ya4ey")
+
+[node name="Timer" type="Timer" parent="Hurtbox"]
+wait_time = 2.0
+one_shot = true
 
 [node name="PickupArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.998774, 0)
@@ -101,9 +203,24 @@ frame_progress = 0.229304
 [node name="Footsteps" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("6_g6k8r")
 
+[node name="Cursing" type="Node3D" parent="."]
+script = ExtResource("7_rgyib")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Cursing"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.966241, 2.63119, -0.801064)
+sprite_frames = SubResource("SpriteFrames_ebec5")
+frame_progress = 0.945136
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Cursing"]
+libraries = {
+&"": SubResource("AnimationLibrary_hg6s5")
+}
+
 [connection signal="just_reset" from="." to="Health" method="_on_player_just_reset"]
+[connection signal="was_hit" from="." to="Cursing" method="_on_player_was_hit"]
 [connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
 [connection signal="hurt" from="Hurtbox" to="Health" method="_on_hurtbox_hurt"]
+[connection signal="timeout" from="Hurtbox/Timer" to="Hurtbox" method="_on_timer_timeout"]
 [connection signal="area_entered" from="PickupArea" to="PickupArea" method="_on_area_entered"]
 [connection signal="picked_up" from="PickupArea" to="." method="_on_pickup_area_picked_up"]
 [connection signal="depleted" from="Health" to="." method="_on_health_depleted"]

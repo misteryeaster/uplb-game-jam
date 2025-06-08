@@ -4,11 +4,11 @@ signal heat_changed
 signal heat_percentage_changed
 
 @export var heat_increase: float
-@export var max_heat: float = 10
+@export var max_heat: float = 100
 
 @onready var heat: float = 0:
 	set(value):
-		heat = max(value, 0)
+		heat = clamp(value, 0, max_heat)
 		
 		heat_changed.emit(heat)
 		heat_percentage_changed.emit(heat / max_heat * 100)

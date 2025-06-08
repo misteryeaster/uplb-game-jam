@@ -7,6 +7,7 @@ signal health_changed
 signal health_percentage_changed
 signal picked_up
 signal player_won  # New signal for winning the game
+signal was_hit
 
 @export_category("movement")
 # Rename this to clearly indicate it's the base speed
@@ -169,6 +170,8 @@ func _handle_knockback(delta: float):
 func trigger_knockback():
 	if _is_knocked_back:
 		return  # Already knocked back, don't stack
+	
+	was_hit.emit()
 	
 	_is_knocked_back = true
 	_knockback_timer = knockback_stop_duration

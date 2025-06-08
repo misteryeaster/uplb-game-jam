@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://bujbay8utms77"]
+
+[ext_resource type="Texture2D" uid="uid://hqnav6yk4tdn" path="res://assets/poster2.png" id="1_02gsu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_02gsu"]
+albedo_texture = ExtResource("1_02gsu")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_v4c5a"]
+size = Vector2(2.4, 3.6)
+
+[node name="PhPoster" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_02gsu")
+mesh = SubResource("PlaneMesh_v4c5a")
