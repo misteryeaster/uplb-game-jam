@@ -1,11 +1,12 @@
-[gd_scene load_steps=27 format=3 uid="uid://dd5foxbehqnae"]
+[gd_scene load_steps=28 format=3 uid="uid://diy4bq37mtd5w"]
 
 [ext_resource type="PackedScene" uid="uid://c3wojpu7gleck" path="res://gameplay/obstacles/cone.tscn" id="1_khwxq"]
-[ext_resource type="PackedScene" uid="uid://cj0k364owvbgl" path="res://gameplay/obstacles/fence.tscn" id="2_3gwbo"]
-[ext_resource type="PackedScene" uid="uid://kfffvkbinv0y" path="res://gameplay/obstacles/jeep.tscn" id="3_kkfge"]
-[ext_resource type="Texture2D" uid="uid://djy4iluvptlmj" path="res://assets/lamppost.png" id="4_lggof"]
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/fence.tscn" id="2_3gwbo"]
+[ext_resource type="PackedScene" uid="uid://cd07bhhrphb2c" path="res://gameplay/overpass.tscn" id="4_kkfge"]
 [ext_resource type="Texture2D" uid="uid://coykve2dw0o3i" path="res://assets/powerline.png" id="5_c6f7v"]
+[ext_resource type="PackedScene" uid="uid://b5d33qnyeckxp" path="res://decor/left_street_light.tscn" id="5_lggof"]
 [ext_resource type="Texture2D" uid="uid://brun1rhsn0t00" path="res://assets/highway.png" id="6_7ktf1"]
+[ext_resource type="PackedScene" uid="uid://c1mwyl70sg0t6" path="res://decor/right_street_light.tscn" id="6_c6f7v"]
 [ext_resource type="Texture2D" uid="uid://b7itsqvnlxg33" path="res://assets/sidewalk.png" id="7_tlwwe"]
 [ext_resource type="PackedScene" uid="uid://bkhncyqw1m2xf" path="res://gameplay/pickups/water_pickup.tscn" id="8_igjmj"]
 [ext_resource type="PackedScene" uid="uid://cmqtrivu47oq6" path="res://gameplay/pickups/sting_pickup.tscn" id="9_ghbu3"]
@@ -71,11 +72,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.95685, 0.28335, -36.4394)
 [node name="Cone4" parent="Obstacles" instance=ExtResource("1_khwxq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.39652, 0.28335, 8.24453)
 
-[node name="Cone5" parent="Obstacles" instance=ExtResource("1_khwxq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0498539, 0.28335, 11.0223)
+[node name="Cone12" parent="Obstacles" instance=ExtResource("1_khwxq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.24778, 0.28335, 20.1868)
 
-[node name="Cone6" parent="Obstacles" instance=ExtResource("1_khwxq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.135323, 0.28335, 1.89185)
+[node name="Cone9" parent="Obstacles" instance=ExtResource("1_khwxq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0498539, 0.28335, 28.8065)
+
+[node name="Cone11" parent="Obstacles" instance=ExtResource("1_khwxq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0498539, 0.28335, 45.0928)
 
 [node name="Cone7" parent="Obstacles" instance=ExtResource("1_khwxq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33477, 0.28335, 1.89185)
@@ -89,105 +93,105 @@ transform = Transform3D(0.999986, -0.00519288, 0.000746958, 0.00519281, 0.999987
 [node name="fence" parent="Obstacles" instance=ExtResource("2_3gwbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.34794, 0.156524, -17.3289)
 
-[node name="Jeep" parent="Obstacles" instance=ExtResource("3_kkfge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.47926, 0.845972, 28.2176)
-
-[node name="Jeep2" parent="Obstacles" instance=ExtResource("3_kkfge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.47926, 0.845972, 28.2176)
-
 [node name="Decor" type="Node3D" parent="."]
 
-[node name="LeftStreetLight" type="Node3D" parent="Decor"]
+[node name="Overpass" parent="Decor" instance=ExtResource("4_kkfge")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.76951, 0.941713, 10.4547)
+
+[node name="LeftStreetLight" parent="Decor" instance=ExtResource("5_lggof")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98158, 0, 33.0606)
 
-[node name="Sprite3D" type="Sprite3D" parent="Decor/LeftStreetLight"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.841788, 2.83288, 0)
-texture = ExtResource("4_lggof")
+[node name="LeftStreetLight3" parent="Decor" instance=ExtResource("5_lggof")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98158, 0, 47.265)
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Decor/LeftStreetLight"]
-transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
-light_energy = 5.09
-spot_range = 17.51
+[node name="LeftStreetLight2" parent="Decor" instance=ExtResource("5_lggof")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0348, 0, 19.689)
 
-[node name="LeftStreetLight4" type="Node3D" parent="Decor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98158, 0, 48.2698)
+[node name="LeftStreetLight4" parent="Decor" instance=ExtResource("5_lggof")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0348, 0, -0.274832)
 
-[node name="Sprite3D" type="Sprite3D" parent="Decor/LeftStreetLight4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.841788, 2.83288, 0)
-texture = ExtResource("4_lggof")
+[node name="LeftStreetLight6" parent="Decor" instance=ExtResource("5_lggof")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0348, 0, -41.8094)
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Decor/LeftStreetLight4"]
-transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
-light_energy = 5.09
-spot_range = 17.51
-
-[node name="RightStreetLight" type="Node3D" parent="Decor"]
+[node name="RightStreetLight" parent="Decor" instance=ExtResource("6_c6f7v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.91702, 0, 0)
 
-[node name="Sprite3D" type="Sprite3D" parent="Decor/RightStreetLight"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.806036, 2.83288, 0)
-flip_h = true
-texture = ExtResource("4_lggof")
+[node name="RightStreetLight2" parent="Decor" instance=ExtResource("6_c6f7v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.91702, 0, 19.1633)
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Decor/RightStreetLight"]
-transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
-light_energy = 5.09
-spot_range = 17.51
+[node name="RightStreetLight3" parent="Decor" instance=ExtResource("6_c6f7v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.91702, 0, -22.0001)
 
-[node name="LeftStreetLight2" type="Node3D" parent="Decor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98158, 0, 0)
-
-[node name="Sprite3D" type="Sprite3D" parent="Decor/LeftStreetLight2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.841788, 2.83288, 0)
-texture = ExtResource("4_lggof")
-
-[node name="SpotLight3D" type="SpotLight3D" parent="Decor/LeftStreetLight2"]
-transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
-light_energy = 5.09
-spot_range = 17.51
-
-[node name="RightStreetLight2" type="Node3D" parent="Decor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.91702, 0, 0)
-
-[node name="Sprite3D" type="Sprite3D" parent="Decor/RightStreetLight2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.806036, 2.83288, 0)
-flip_h = true
-texture = ExtResource("4_lggof")
-
-[node name="SpotLight3D" type="SpotLight3D" parent="Decor/RightStreetLight2"]
-transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
-light_energy = 5.09
-spot_range = 17.51
-
-[node name="LeftStreetLight3" type="Node3D" parent="Decor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98158, 0, -50)
-
-[node name="Sprite3D" type="Sprite3D" parent="Decor/LeftStreetLight3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.841788, 2.83288, 0)
-texture = ExtResource("4_lggof")
-
-[node name="SpotLight3D" type="SpotLight3D" parent="Decor/LeftStreetLight3"]
-transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
-light_energy = 5.09
-spot_range = 17.51
-
-[node name="RightStreetLight3" type="Node3D" parent="Decor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.91702, 0, -50)
-
-[node name="Sprite3D" type="Sprite3D" parent="Decor/RightStreetLight3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.806036, 2.83288, 0)
-flip_h = true
-texture = ExtResource("4_lggof")
-
-[node name="SpotLight3D" type="SpotLight3D" parent="Decor/RightStreetLight3"]
-transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
-light_energy = 5.09
-spot_range = 17.51
+[node name="RightStreetLight4" parent="Decor" instance=ExtResource("6_c6f7v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.91702, 0, 46.4342)
 
 [node name="Powerline" type="Node3D" parent="Decor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.21279, 0, -2.12344)
 
 [node name="Sprite3D" type="Sprite3D" parent="Decor/Powerline"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.99646, 3.17368, 18.6024)
+texture = ExtResource("5_c6f7v")
+
+[node name="Powerline3" type="Node3D" parent="Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.78878, 0, -38.8203)
+
+[node name="Sprite3D" type="Sprite3D" parent="Decor/Powerline3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.99646, 3.17368, 18.6024)
+texture = ExtResource("5_c6f7v")
+
+[node name="Powerline4" type="Node3D" parent="Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.78878, 0, -16.4122)
+
+[node name="Sprite3D" type="Sprite3D" parent="Decor/Powerline4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.99646, 3.17368, 18.6024)
+texture = ExtResource("5_c6f7v")
+
+[node name="Powerline5" type="Node3D" parent="Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.78878, 0, -61.6383)
+
+[node name="Sprite3D" type="Sprite3D" parent="Decor/Powerline5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.99646, 3.17368, 18.6024)
+texture = ExtResource("5_c6f7v")
+
+[node name="Powerline2" type="Node3D" parent="Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.21279, 0, 9.91049)
+
+[node name="Sprite3D" type="Sprite3D" parent="Decor/Powerline2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.99646, 3.17368, 31.5104)
+texture = ExtResource("5_c6f7v")
+
+[node name="Powerline6" type="Node3D" parent="Decor"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 7.09603, 0, -17.1606)
+
+[node name="Sprite3D" type="Sprite3D" parent="Decor/Powerline6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.99646, 3.17368, 18.6024)
+texture = ExtResource("5_c6f7v")
+
+[node name="Powerline7" type="Node3D" parent="Decor"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 5.80973, 0, 19.5414)
+
+[node name="Sprite3D" type="Sprite3D" parent="Decor/Powerline7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.99646, 3.17368, 18.6024)
+texture = ExtResource("5_c6f7v")
+
+[node name="Powerline8" type="Node3D" parent="Decor"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 5.72565, 0, -2.86658)
+
+[node name="Sprite3D" type="Sprite3D" parent="Decor/Powerline8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.99646, 3.17368, 18.6024)
+texture = ExtResource("5_c6f7v")
+
+[node name="Powerline9" type="Node3D" parent="Decor"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 5.89535, 0, 42.3592)
+
+[node name="Sprite3D" type="Sprite3D" parent="Decor/Powerline9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.99646, 3.17368, 6.90868)
+texture = ExtResource("5_c6f7v")
+
+[node name="Powerline10" type="Node3D" parent="Decor"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 7.05087, 0, -29.1944)
+
+[node name="Sprite3D" type="Sprite3D" parent="Decor/Powerline10"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.99646, 3.17368, 18.6024)
 texture = ExtResource("5_c6f7v")
 
@@ -278,14 +282,26 @@ skeleton = NodePath("../..")
 [node name="WaterPickup2" parent="Pickups" instance=ExtResource("8_igjmj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.85302, 0.088361, 2.14591)
 
+[node name="WaterPickup7" parent="Pickups" instance=ExtResource("8_igjmj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.85302, 0.088361, -22.0989)
+
 [node name="WaterPickup3" parent="Pickups" instance=ExtResource("8_igjmj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5134, 0.387047, 14.0176)
+
+[node name="WaterPickup5" parent="Pickups" instance=ExtResource("8_igjmj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02487, 0.387047, 48.1876)
+
+[node name="WaterPickup6" parent="Pickups" instance=ExtResource("8_igjmj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5134, 0.387047, 34.8078)
 
 [node name="WaterPickup4" parent="Pickups" instance=ExtResource("8_igjmj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.93235, 0.387047, 22.5319)
 
 [node name="EnergyDrinkPickup3" parent="Pickups" instance=ExtResource("9_ghbu3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.68542, 0, -5.24559)
+
+[node name="EnergyDrinkPickup5" parent="Pickups" instance=ExtResource("9_ghbu3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0382338, 0, 20.7392)
 
 [node name="EnergyDrinkPickup4" parent="Pickups" instance=ExtResource("9_ghbu3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.185188, 0, -32.3572)
@@ -300,7 +316,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
 surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
 
 [node name="House2" type="MeshInstance3D" parent="Sidelines"]
-transform = Transform3D(0.25, 0, 2.18557e-08, 0, 0.25, 0, -2.18557e-08, 0, 0.25, -9.13215, 0.763498, 10.9456)
+transform = Transform3D(0.25, 0, 2.18557e-08, 0, 0.25, 0, -2.18557e-08, 0, 0.25, -10.483, 0.763498, 10.9456)
 mesh = ExtResource("10_assjs")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
@@ -314,7 +330,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
 surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
 
 [node name="House15" type="MeshInstance3D" parent="Sidelines"]
-transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 9.86785, 5.01261, 10.9456)
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 10.4076, 5.01261, 10.9456)
 mesh = ExtResource("10_assjs")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
@@ -335,7 +351,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
 surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
 
 [node name="House36" type="MeshInstance3D" parent="Sidelines"]
-transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -9.21088, 5.01261, -7.85454)
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -9.21088, 5.01261, -11.8545)
 mesh = ExtResource("10_assjs")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
@@ -467,6 +483,111 @@ skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
 surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
 
+[node name="House63" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 30.2822, 5.01261, -26.803)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House64" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 30.2822, 5.01261, -43.3885)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House65" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 30.2822, 0.763498, -26.8445)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House66" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 30.2822, 0.763498, -35.6335)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House67" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 30.2822, 0.763498, -44.5961)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House68" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 30.2822, 5.01261, 3.19699)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House70" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 30.2822, 0.763498, 3.15549)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House71" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 30.2822, 0.763498, -5.63351)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House72" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 30.2822, 0.763498, -14.5961)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House73" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 30.2822, 5.01261, 34.197)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House74" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 30.2822, 5.01261, 17.6115)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House75" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 30.2822, 0.763498, 34.1555)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House79" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 30.2822, 0.763498, 47.1158)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House76" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 30.2822, 0.763498, 25.3665)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House77" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 30.2822, 0.763498, 16.4039)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
 [node name="House24" type="MeshInstance3D" parent="Sidelines"]
 transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 19.4181, 5.01261, 20.0631)
 mesh = ExtResource("10_assjs")
@@ -475,13 +596,20 @@ surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
 surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
 
 [node name="House25" type="MeshInstance3D" parent="Sidelines"]
-transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 19.4181, 5.01261, 10.5856)
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 19.4181, 5.01261, 7.5856)
 mesh = ExtResource("10_assjs")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
 surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
 
 [node name="House26" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 19.4181, 0.763498, 20.0216)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House55" type="MeshInstance3D" parent="Sidelines"]
 transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 19.4181, 0.763498, 20.0216)
 mesh = ExtResource("10_assjs")
 skeleton = NodePath("../..")
@@ -497,6 +625,41 @@ surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
 
 [node name="House28" type="MeshInstance3D" parent="Sidelines"]
 transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 19.4181, 0.763498, 2.27003)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House56" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 19.4181, 5.01261, 48.2854)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House57" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 19.4181, 5.01261, 35.8079)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House58" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 19.4181, 0.763498, 48.2439)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House60" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 19.4181, 0.763498, 39.4549)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House61" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 19.4181, 0.763498, 30.4923)
 mesh = ExtResource("10_assjs")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
@@ -532,6 +695,132 @@ surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
 
 [node name="House44" type="MeshInstance3D" parent="Sidelines"]
 transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -18.5819, 0.763498, 50.3992)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House69" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 5.01261, 41.3678)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House78" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 5.01261, 50.7295)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House80" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 0.763498, 32.6476)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House81" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 0.763498, 41.4366)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House82" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 0.763498, 50.3992)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House83" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 5.01261, 11.9483)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House84" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 5.01261, 21.31)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House85" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 0.763498, 3.22808)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House86" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 0.763498, 12.0171)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House87" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 0.763498, 20.9797)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House88" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 5.01261, -17.4635)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House89" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 5.01261, -8.10182)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House90" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 0.763498, -26.1838)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House91" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 0.763498, -17.3948)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House92" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 0.763498, -8.43217)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House93" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 5.01261, -49.5354)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House96" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 0.763498, -49.4666)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
+[node name="House97" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -29.0768, 0.763498, -40.504)
 mesh = ExtResource("10_assjs")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
@@ -579,15 +868,22 @@ skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
 surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
 
+[node name="House62" type="MeshInstance3D" parent="Sidelines"]
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -18.5819, 5.01261, -40.1591)
+mesh = ExtResource("10_assjs")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
+surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
+
 [node name="House51" type="MeshInstance3D" parent="Sidelines"]
-transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -18.5819, 5.01261, -19.9164)
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -18.5819, 5.01261, -17.9594)
 mesh = ExtResource("10_assjs")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
 surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
 
 [node name="House52" type="MeshInstance3D" parent="Sidelines"]
-transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -18.5819, 0.763498, -29.3524)
+transform = Transform3D(0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, 0.25, -18.5819, 0.763498, -31.8606)
 mesh = ExtResource("10_assjs")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
@@ -643,14 +939,14 @@ surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
 surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
 
 [node name="House31" type="MeshInstance3D" parent="Sidelines"]
-transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 9.86785, 0.763498, 42.4432)
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 11.0258, 0.763498, 42.4432)
 mesh = ExtResource("10_assjs")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
 surface_material_override/1 = SubResource("StandardMaterial3D_wq2p3")
 
 [node name="House32" type="MeshInstance3D" parent="Sidelines"]
-transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 9.86785, 0.763498, 33.6542)
+transform = Transform3D(-0.25, 0, 0, 0, 0.25, 0, 0, 0, -0.25, 11.1953, 0.763498, 33.6542)
 mesh = ExtResource("10_assjs")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
@@ -688,7 +984,7 @@ mesh = SubResource("BoxMesh_wq2p3")
 skeleton = NodePath("../..")
 
 [node name="Building2" type="MeshInstance3D" parent="Sidelines"]
-transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, -10.1157, 0.644116, 40.4505)
+transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, -11.0669, 0.644116, 35.9005)
 mesh = ExtResource("11_ijilm")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_kvfrl")
@@ -737,6 +1033,18 @@ transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -
 [node name="PhPoster4" parent="Posters" instance=ExtResource("12_8lh78")]
 transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.43218, 7.10506, 3.35473)
 
+[node name="PhPoster16" parent="Posters" instance=ExtResource("12_8lh78")]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.43218, 7.10506, 27.2287)
+
+[node name="PhPoster14" parent="Posters" instance=ExtResource("12_8lh78")]
+transform = Transform3D(-2.18557e-08, -0.5, 2.18557e-08, 0, -2.18557e-08, -0.5, 0.5, -2.18557e-08, 9.55343e-16, 7.43218, 3.40921, 14.459)
+
+[node name="PhPoster15" parent="Posters" instance=ExtResource("12_8lh78")]
+transform = Transform3D(-2.18557e-08, -0.5, 2.18557e-08, 0, -2.18557e-08, -0.5, 0.5, -2.18557e-08, 9.55343e-16, 7.43218, 3.40921, 13.2834)
+
+[node name="PhPoster17" parent="Posters" instance=ExtResource("12_8lh78")]
+transform = Transform3D(-2.18557e-08, -0.5, 2.18557e-08, 0, -2.18557e-08, -0.5, 0.5, -2.18557e-08, 9.55343e-16, 7.43218, 3.40921, 12.0336)
+
 [node name="PhPoster5" parent="Posters" instance=ExtResource("12_8lh78")]
 transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.99512, 5.25612, 21.1896)
 
@@ -762,7 +1070,7 @@ transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster11" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.38267, 2.81886, -25.1814)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.38267, 3.26817, -25.1814)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster12" parent="Posters" instance=ExtResource("14_c6re2")]
@@ -770,7 +1078,7 @@ transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster13" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 2.81886, -24.2827)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 2.81886, -25.8761)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster14" parent="Posters" instance=ExtResource("14_c6re2")]
@@ -786,29 +1094,20 @@ transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster17" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 2.81886, -12.1531)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 2.52341, -12.1531)
 skeleton = NodePath("../..")
 
 [node name="PhPoster7" parent="Posters" instance=ExtResource("12_8lh78")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 6.98262, 2.82464, 36.693)
-
-[node name="PoliticalPoster54" parent="Posters" instance=ExtResource("13_swimc")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.33348, 2.84615, 28.4011)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 8.57312, 2.82464, 36.693)
 
 [node name="PoliticalPoster55" parent="Posters" instance=ExtResource("13_swimc")]
 transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.33348, 2.84615, 23.9766)
 
-[node name="PoliticalPoster56" parent="Posters" instance=ExtResource("13_swimc")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.33348, 2.84615, 31.5157)
-
 [node name="PhPoster8" parent="Posters" instance=ExtResource("12_8lh78")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 6.98262, 2.82464, 36.693)
-
-[node name="PoliticalPoster57" parent="Posters" instance=ExtResource("13_swimc")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.33348, 2.84615, 28.4011)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 8.64147, 2.82464, 36.693)
 
 [node name="PoliticalPoster58" parent="Posters" instance=ExtResource("13_swimc")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.33348, 2.84615, 31.5157)
+transform = Transform3D(-4.37113e-08, -0.999998, 0.00207698, -9.0786e-11, -0.00207698, -0.999998, 1, -4.37114e-08, 1.91069e-15, 8.561, 2.84615, 31.5157)
 
 [node name="PhPoster9" parent="Posters" instance=ExtResource("12_8lh78")]
 transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.43218, 7.10506, 44.9244)
@@ -828,19 +1127,19 @@ transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster63" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.41609, 3.70655, 34.0736)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 8.62204, 3.70655, 34.0736)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster64" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.38267, 2.81886, 33.5223)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 8.41023, 2.81886, 33.5223)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster65" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.24916, 3.70655, 34.9723)
+transform = Transform3D(-0.0427127, -0.999087, 4.36715e-08, 0, -4.37114e-08, -1, 0.999087, -0.0427127, 1.86703e-09, 8.48653, 3.70655, 34.9723)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster66" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 2.81886, 34.421)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 8.46382, 2.81886, 34.421)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster67" parent="Posters" instance=ExtResource("14_c6re2")]
@@ -855,39 +1154,111 @@ skeleton = NodePath("../..")
 transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 2.81886, 46.5506)
 skeleton = NodePath("../..")
 
+[node name="PoliticalPoster155" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 16.7844, 3.70655, 48.3247)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster156" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 16.751, 2.81886, 47.7734)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster157" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 16.5841, 2.81886, 48.672)
+skeleton = NodePath("../..")
+
 [node name="PoliticalPoster38" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -7.06159, 5.70655, 24.3683)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -7.06159, 4.70655, 26.3683)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster39" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -7.02817, 4.81886, 24.9196)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -7.0163, 4.67164, 25.0797)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster39" parent="Posters/PoliticalPoster39" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.999285, -0.0376902, -0.00296488, 0.0376901, 0.999289, -0.00011187, 0.00296699, 4.38718e-08, 0.999996, -7.0163, -9.09371, -2.00717)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster40" parent="Posters/PoliticalPoster39" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.999285, -0.0376902, -0.00296488, 0.0376901, 0.999289, -0.00011187, 0.00296699, 4.38718e-08, 0.999996, -8.19432, -9.09371, -2.00717)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster41" parent="Posters/PoliticalPoster39" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.999285, -0.0376902, -0.00296488, 0.0376901, 0.999289, -0.00011187, 0.00296699, 4.38718e-08, 0.999996, -9.31574, -9.09372, -2.00717)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster42" parent="Posters/PoliticalPoster39" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.999285, -0.0376902, -0.00296488, 0.0376901, 0.999289, -0.00011187, 0.00296699, 4.38718e-08, 0.999996, -9.31574, -9.09372, -0.313075)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster43" parent="Posters/PoliticalPoster39" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.999285, -0.0376902, -0.00296488, 0.0376901, 0.999289, -0.00011187, 0.00296699, 4.38718e-08, 0.999996, -8.22262, -9.09372, -0.313076)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster44" parent="Posters/PoliticalPoster39" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.999285, -0.0376902, -0.00296488, 0.0376901, 0.999289, -0.00011187, 0.00296699, 4.38718e-08, 0.999996, -7.09715, -9.09372, -0.313076)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster40" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.89466, 5.70655, 23.4697)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -7.01452, 4.70655, 24.0834)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster40" parent="Posters/PoliticalPoster40" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -7.01452, 4.70655, 24.0834)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster41" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.86124, 4.81886, 24.021)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.86124, 4.70183, 23.021)
 skeleton = NodePath("../..")
 
 [node name="PhPoster12" parent="Posters" instance=ExtResource("12_8lh78")]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.99512, 5.25612, 39.1033)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -7.92023, 5.25612, 37.1751)
 
 [node name="PoliticalPoster78" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -7.06159, 5.70655, 42.282)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -7.9425, 5.70655, 39.9849)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster79" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -7.02817, 4.81886, 42.8333)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -7.9093, 4.81886, 39.9493)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster80" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.89466, 5.70655, 41.3834)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -7.97459, 5.70655, 39.1336)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster81" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.86124, 4.81886, 41.9347)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -7.87902, 4.81886, 38.9388)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster147" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -16.0905, 7.55692, 46.1868)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster148" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -16.0573, 6.66923, 46.1512)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster149" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -16.1226, 7.55692, 45.3355)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster150" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -16.027, 6.66923, 45.1407)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster151" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -16.0332, 2.82979, 47.6836)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster152" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -16, 1.9421, 47.648)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster153" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -16.0653, 2.82979, 46.8323)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster154" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -15.9698, 1.9421, 46.6375)
 skeleton = NodePath("../..")
 
 [node name="PhPoster13" parent="Posters" instance=ExtResource("12_8lh78")]
@@ -898,7 +1269,7 @@ transform = Transform3D(1.31134e-07, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, 1.
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster83" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(1.31134e-07, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, 1.31134e-07, -5.73205e-15, 9.04266, 5.0452, -46.1709)
+transform = Transform3D(1.31134e-07, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, 1.31134e-07, -5.73205e-15, 8.96955, 5.77228, -46.6432)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster84" parent="Posters" instance=ExtResource("14_c6re2")]
@@ -906,23 +1277,23 @@ transform = Transform3D(1.31134e-07, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, 1.
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster85" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(1.31134e-07, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, 1.31134e-07, -5.73205e-15, 8.87573, 5.0452, -45.2723)
+transform = Transform3D(1.31134e-07, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, 1.31134e-07, -5.73205e-15, 8.87573, 5.0452, -43.6876)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster42" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.74441, 3.32289, 12.9204)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -8.05393, 3.32289, 12.9204)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster43" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.71099, 2.4352, 13.4717)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -8.21457, 2.4352, 13.4717)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster44" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.57748, 3.32289, 12.0218)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -8.04749, 3.32289, 12.0218)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster45" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.54406, 2.4352, 12.5731)
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -8.01605, 2.4352, 12.5731)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster46" parent="Posters" instance=ExtResource("14_c6re2")]
@@ -957,12 +1328,144 @@ skeleton = NodePath("../..")
 transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.54406, 2.4352, -7.68051)
 skeleton = NodePath("../..")
 
+[node name="PoliticalPoster120" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0292301, 0.999573, -4.36927e-08, -3.87239e-16, -4.37114e-08, -1, -0.999573, 0.0292301, -1.27769e-09, -6.73679, 3.26153, -37.0482)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster121" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0292301, 0.999573, -4.36927e-08, -3.87239e-16, -4.37114e-08, -1, -0.999573, 0.0292301, -1.27769e-09, -6.6571, 2.22611, -37.0482)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster124" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0292301, 0.999573, -4.36927e-08, -3.87239e-16, -4.37114e-08, -1, -0.999573, 0.0292301, -1.27769e-09, -6.55721, 2.64722, -36.1961)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster122" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0292301, 0.999573, -4.36927e-08, -3.87239e-16, -4.37114e-08, -1, -0.999573, 0.0292301, -1.27769e-09, -6.62886, 2.16296, -34.8469)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster123" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0292301, 0.999573, -4.36927e-08, -3.87239e-16, -4.37114e-08, -1, -0.999573, 0.0292301, -1.27769e-09, -6.73679, 3.17468, -34.4562)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster131" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.014615, 0.499786, -2.18464e-08, 0, -2.18557e-08, -0.5, -0.499786, 0.014615, -6.38844e-10, -6.73679, 3.68067, -28.8367)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster132" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.014615, 0.499786, -2.18464e-08, 0, -2.18557e-08, -0.5, -0.499786, 0.014615, -6.38844e-10, -6.73679, 3.68067, -28.2404)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster133" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.014615, 0.499786, -2.18464e-08, 0, -2.18557e-08, -0.5, -0.499786, 0.014615, -6.38844e-10, -6.73679, 3.68067, -27.6531)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster134" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.014615, 0.499786, -2.18464e-08, 0, -2.18557e-08, -0.5, -0.499786, 0.014615, -6.38844e-10, -6.73679, 3.68067, -27.1091)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster135" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.014615, 0.499786, -2.18464e-08, 0, -2.18557e-08, -0.5, -0.499786, 0.014615, -6.38844e-10, -6.73679, 2.79793, -27.1091)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster136" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.014615, 0.499786, -2.18464e-08, 0, -2.18557e-08, -0.5, -0.499786, 0.014615, -6.38844e-10, -6.73679, 2.79793, -27.7277)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster137" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.014615, 0.499786, -2.18464e-08, 0, -2.18557e-08, -0.5, -0.499786, 0.014615, -6.38844e-10, -6.73679, 2.79793, -28.3318)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster138" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.014615, 0.499786, -2.18464e-08, 0, -2.18557e-08, -0.5, -0.499786, 0.014615, -6.38844e-10, -6.73679, 2.79793, -28.9074)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster119" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0292301, 0.999573, -4.36927e-08, -3.87239e-16, -4.37114e-08, -1, -0.999573, 0.0292301, -1.27769e-09, -6.73679, 3.48449, -36.0052)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster139" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0292301, 0.999573, -4.36927e-08, -3.87239e-16, -4.37114e-08, -1, -0.999573, 0.0292301, -1.27769e-09, -16.1482, 3.26153, -42.8282)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster142" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0292301, 0.999573, -4.36927e-08, -3.87239e-16, -4.37114e-08, -1, -0.999573, 0.0292301, -1.27769e-09, -16.1913, 3.14878, -43.5572)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster140" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0292301, 0.999573, -4.36927e-08, -3.87239e-16, -4.37114e-08, -1, -0.999573, 0.0292301, -1.27769e-09, -16.1747, 1.76718, -44.2466)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster141" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0292301, 0.999573, -4.36927e-08, -3.87239e-16, -4.37114e-08, -1, -0.999573, 0.0292301, -1.27769e-09, -16.1742, 2.64722, -44.4205)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster144" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0292301, 0.999573, -4.36927e-08, -3.87239e-16, -4.37114e-08, -1, -0.999573, 0.0292301, -1.27769e-09, -16.1905, 3.48449, -41.7132)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster125" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0292301, 0.999573, -4.36927e-08, -3.87239e-16, -4.37114e-08, -1, -0.999573, 0.0292301, -1.27769e-09, -6.73679, 7.45257, -37.0482)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster126" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0292301, 0.999573, -4.36927e-08, -3.87239e-16, -4.37114e-08, -1, -0.999573, 0.0292301, -1.27769e-09, -6.6571, 6.41715, -37.0482)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster127" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0292301, 0.999573, -4.36927e-08, -3.87239e-16, -4.37114e-08, -1, -0.999573, 0.0292301, -1.27769e-09, -6.55721, 6.83826, -36.1961)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster128" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0292301, 0.999573, -4.36927e-08, -3.87239e-16, -4.37114e-08, -1, -0.999573, 0.0292301, -1.27769e-09, -6.63378, 6.354, -34.8532)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster129" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0292301, 0.999573, -4.36927e-08, -3.87239e-16, -4.37114e-08, -1, -0.999573, 0.0292301, -1.27769e-09, -6.73679, 7.36573, -34.4562)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster130" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0292301, 0.999573, -4.36927e-08, -3.87239e-16, -4.37114e-08, -1, -0.999573, 0.0292301, -1.27769e-09, -6.73679, 7.67553, -36.0052)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster110" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.69167, 7.2475, -12.4167)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster111" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.65825, 6.35981, -11.8654)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster112" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.52474, 7.68899, -13.3154)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster113" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.49132, 6.35981, -13.1398)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster114" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.69167, 8.11985, -14.7545)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster115" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.65825, 7.0022, -14.2032)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster116" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.52474, 7.2475, -15.6532)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster117" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.49132, 6.35981, -15.1019)
+skeleton = NodePath("../..")
+
 [node name="PoliticalPoster18" parent="Posters" instance=ExtResource("14_c6re2")]
 transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.41609, 3.70655, -9.86991)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster19" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.38267, 2.81886, -10.4212)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.38267, 3.75651, -10.4212)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster20" parent="Posters" instance=ExtResource("14_c6re2")]
@@ -970,7 +1473,7 @@ transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster21" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 2.81886, -9.52257)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 2.81886, -7.29143)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster22" parent="Posters" instance=ExtResource("14_c6re2")]
@@ -978,7 +1481,7 @@ transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster23" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.38267, 2.81886, -8.60698)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.15643, 2.16549, -10.9929)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster24" parent="Posters" instance=ExtResource("14_c6re2")]
@@ -986,7 +1489,7 @@ transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster25" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 2.81886, -7.70834)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 3.81554, -6.27694)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster26" parent="Posters" instance=ExtResource("14_c6re2")]
@@ -1018,7 +1521,7 @@ transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster33" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 2.81886, -1.05329)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 2.81886, -2.72462)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster34" parent="Posters" instance=ExtResource("14_c6re2")]
@@ -1026,15 +1529,103 @@ transform = Transform3D(0.0065798, -0.999978, 4.37105e-08, 0, -4.37114e-08, -1, 
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster35" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.38267, 6.8778, -1.95193)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.38267, 7.70952, 1.59235)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster36" parent="Posters" instance=ExtResource("14_c6re2")]
 transform = Transform3D(0.0065798, -0.999978, 4.37105e-08, 0, -4.37114e-08, -1, 0.999978, 0.0065798, -2.87612e-10, 7.25226, 7.76549, -0.50142)
 skeleton = NodePath("../..")
 
+[node name="PoliticalPoster56" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.00328989, -0.499989, 2.18552e-08, 0, -2.18557e-08, -0.5, 0.499989, 0.00328989, -1.43806e-10, 7.93493, 8.09956, 10.7306)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster86" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.00328989, -0.499989, 2.18552e-08, 0, -2.18557e-08, -0.5, 0.499989, 0.00328989, -1.43806e-10, 7.93493, 8.09956, 10.1368)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster87" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.00328989, -0.499989, 2.18552e-08, 0, -2.18557e-08, -0.5, 0.499989, 0.00328989, -1.43806e-10, 7.93493, 8.09956, 9.55841)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster88" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.00328989, -0.499989, 2.18552e-08, 0, -2.18557e-08, -0.5, 0.499989, 0.00328989, -1.43806e-10, 7.93493, 8.09956, 8.96301)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster89" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.00328989, -0.499989, 2.18552e-08, 0, -2.18557e-08, -0.5, 0.499989, 0.00328989, -1.43806e-10, 7.93493, 8.09956, 8.36891)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster90" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.00328989, -0.499989, 2.18552e-08, 0, -2.18557e-08, -0.5, 0.499989, 0.00328989, -1.43806e-10, 7.93493, 8.09956, 7.78741)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster91" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.00328989, -0.499989, 2.18552e-08, 0, -2.18557e-08, -0.5, 0.499989, 0.00328989, -1.43806e-10, 7.93493, 8.09956, 7.19151)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster92" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.00328989, -0.499989, 2.18552e-08, 0, -2.18557e-08, -0.5, 0.499989, 0.00328989, -1.43806e-10, 7.93493, 7.20432, 10.7306)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster93" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.00328989, -0.499989, 2.18552e-08, 0, -2.18557e-08, -0.5, 0.499989, 0.00328989, -1.43806e-10, 7.93493, 7.20432, 10.1368)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster94" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.00328989, -0.499989, 2.18552e-08, 0, -2.18557e-08, -0.5, 0.499989, 0.00328989, -1.43806e-10, 7.93493, 7.20432, 9.55841)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster95" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.00328989, -0.499989, 2.18552e-08, 0, -2.18557e-08, -0.5, 0.499989, 0.00328989, -1.43806e-10, 7.93493, 7.20432, 8.96301)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster96" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.00328989, -0.499989, 2.18552e-08, 0, -2.18557e-08, -0.5, 0.499989, 0.00328989, -1.43806e-10, 7.93493, 7.20432, 8.36891)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster97" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.00328989, -0.499989, 2.18552e-08, 0, -2.18557e-08, -0.5, 0.499989, 0.00328989, -1.43806e-10, 7.93493, 7.20432, 7.78741)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster98" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.00328989, -0.499989, 2.18552e-08, 0, -2.18557e-08, -0.5, 0.499989, 0.00328989, -1.43806e-10, 7.93493, 7.20432, 7.19151)
+skeleton = NodePath("../..")
+
 [node name="PoliticalPoster37" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 6.8778, -1.05329)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 7.71938, 0.47656)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster118" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0065798, -0.999978, 4.37105e-08, 0, -4.37114e-08, -1, 0.999978, 0.0065798, -2.87612e-10, 16.6046, 7.75442, -9.3396)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster143" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 16.5644, 6.8778, -9.84852)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster145" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0065798, -0.999978, 4.37105e-08, 0, -4.37114e-08, -1, 0.999978, 0.0065798, -2.87612e-10, 16.434, 7.76549, -8.39801)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster146" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 16.3975, 6.8778, -8.94988)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster106" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0065798, -0.999978, 4.37105e-08, 0, -4.37114e-08, -1, 0.999978, 0.0065798, -2.87612e-10, 7.42289, 7.75442, 20.8009)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster107" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.38267, 7.37539, 21.9014)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster108" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(0.0065798, -0.999978, 4.37105e-08, 0, -4.37114e-08, -1, 0.999978, 0.0065798, -2.87612e-10, 7.25226, 7.76549, 23.0455)
+skeleton = NodePath("../..")
+
+[node name="PoliticalPoster109" parent="Posters" instance=ExtResource("14_c6re2")]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 7.23436, 24.2584)
 skeleton = NodePath("../..")
 
 [node name="PhPoster10" parent="Posters" instance=ExtResource("12_8lh78")]
@@ -1053,24 +1644,30 @@ transform = Transform3D(-0.00657971, 0.999978, -4.37105e-08, 0, -4.37114e-08, -1
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster73" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(1.31134e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 1.31134e-07, -5.73206e-15, -6.55877, 6.8778, 4.14435)
+transform = Transform3D(1.31134e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 1.31134e-07, -5.73206e-15, -6.55877, 5.8778, 4.14435)
 skeleton = NodePath("../..")
 
 [node name="PhPoster11" parent="Posters" instance=ExtResource("12_8lh78")]
+transform = Transform3D(1.31134e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 1.31134e-07, -5.73206e-15, -6.69912, 2.22859, -19.3229)
+
+[node name="PhPoster18" parent="Posters" instance=ExtResource("12_8lh78")]
 transform = Transform3D(1.31134e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 1.31134e-07, -5.73206e-15, -6.77521, 7.10506, -26.0269)
 
+[node name="PhPoster19" parent="Posters" instance=ExtResource("12_8lh78")]
+transform = Transform3D(1.31134e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 1.31134e-07, -5.73206e-15, -15.9337, 7.10506, -42.7847)
+
 [node name="PoliticalPoster74" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-0.00657971, 0.999978, -4.37105e-08, 0, -4.37114e-08, -1, -0.999978, -0.00657971, 2.87608e-10, -6.76593, 7.75442, -21.2291)
+transform = Transform3D(-0.00657971, 0.999978, -4.37105e-08, 0, -4.37114e-08, -1, -0.999978, -0.00657971, 2.87608e-10, -6.76593, 7.81705, -20.9088)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster75" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(1.31134e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 1.31134e-07, -5.73206e-15, -6.72571, 6.8778, -20.7202)
+transform = Transform3D(1.31134e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 1.31134e-07, -5.73206e-15, -6.72571, 6.8778, -21.0836)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster76" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(-0.00657971, 0.999978, -4.37105e-08, 0, -4.37114e-08, -1, -0.999978, -0.00657971, 2.87608e-10, -6.59529, 7.76549, -22.1707)
+transform = Transform3D(-0.00657971, 0.999978, -4.37105e-08, 0, -4.37114e-08, -1, -0.999978, -0.00657971, 2.87608e-10, -6.59529, 7.76549, -22.1091)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster77" parent="Posters" instance=ExtResource("14_c6re2")]
-transform = Transform3D(1.31134e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 1.31134e-07, -5.73206e-15, -6.55877, 6.8778, -21.6189)
+transform = Transform3D(1.31134e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 1.31134e-07, -5.73206e-15, -6.55877, 6.19239, -21.6189)
 skeleton = NodePath("../..")

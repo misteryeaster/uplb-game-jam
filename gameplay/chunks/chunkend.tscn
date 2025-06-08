@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://djy4iluvptlmj" path="res://assets/lamppost.png" id="1_6acm3"]
 [ext_resource type="Texture2D" uid="uid://coykve2dw0o3i" path="res://assets/powerline.png" id="2_wdp0h"]
-[ext_resource type="PackedScene" uid="uid://dvhmoye0ycyex" path="res://gameplay/Tunnel.tscn" id="3_1chrb"]
+[ext_resource type="PackedScene" path="res://gameplay/Tunnel.tscn" id="3_1chrb"]
 [ext_resource type="Texture2D" uid="uid://brun1rhsn0t00" path="res://assets/highway.png" id="4_ufosa"]
 [ext_resource type="Texture2D" uid="uid://b7itsqvnlxg33" path="res://assets/sidewalk.png" id="5_bb33j"]
 [ext_resource type="PackedScene" uid="uid://kfffvkbinv0y" path="res://gameplay/obstacles/jeep.tscn" id="6_6acm3"]
@@ -1627,10 +1627,6 @@ skeleton = NodePath("../..")
 transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.38267, 2.81886, -13.0517)
 skeleton = NodePath("../..")
 
-[node name="PoliticalPoster16" parent="Posters" instance=ExtResource("11_kmghw")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.24916, 3.70655, -11.6018)
-skeleton = NodePath("../..")
-
 [node name="PoliticalPoster17" parent="Posters" instance=ExtResource("11_kmghw")]
 transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 2.81886, -12.1531)
 skeleton = NodePath("../..")
@@ -1760,10 +1756,6 @@ skeleton = NodePath("../..")
 transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.71099, 2.4352, -4.4441)
 skeleton = NodePath("../..")
 
-[node name="PoliticalPoster48" parent="Posters" instance=ExtResource("11_kmghw")]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.57748, 3.32289, -5.89401)
-skeleton = NodePath("../..")
-
 [node name="PoliticalPoster49" parent="Posters" instance=ExtResource("11_kmghw")]
 transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91068e-15, -6.54406, 2.4352, -5.34271)
 skeleton = NodePath("../..")
@@ -1788,20 +1780,12 @@ skeleton = NodePath("../..")
 transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.41609, 3.70655, -9.86991)
 skeleton = NodePath("../..")
 
-[node name="PoliticalPoster19" parent="Posters" instance=ExtResource("11_kmghw")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.38267, 2.81886, -10.4212)
-skeleton = NodePath("../..")
-
 [node name="PoliticalPoster20" parent="Posters" instance=ExtResource("11_kmghw")]
 transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.24916, 3.70655, -8.97127)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster21" parent="Posters" instance=ExtResource("11_kmghw")]
 transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 2.81886, -9.52257)
-skeleton = NodePath("../..")
-
-[node name="PoliticalPoster22" parent="Posters" instance=ExtResource("11_kmghw")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.41609, 3.70655, -8.05568)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster23" parent="Posters" instance=ExtResource("11_kmghw")]
@@ -1828,16 +1812,8 @@ skeleton = NodePath("../..")
 transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.24916, 3.70655, -3.76544)
 skeleton = NodePath("../..")
 
-[node name="PoliticalPoster29" parent="Posters" instance=ExtResource("11_kmghw")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.21574, 2.81886, -4.31674)
-skeleton = NodePath("../..")
-
 [node name="PoliticalPoster30" parent="Posters" instance=ExtResource("11_kmghw")]
 transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.41609, 3.70655, -1.40063)
-skeleton = NodePath("../..")
-
-[node name="PoliticalPoster31" parent="Posters" instance=ExtResource("11_kmghw")]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 7.38267, 2.81886, -1.95193)
 skeleton = NodePath("../..")
 
 [node name="PoliticalPoster32" parent="Posters" instance=ExtResource("11_kmghw")]
