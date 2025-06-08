@@ -13,4 +13,5 @@ func _input(event: InputEvent) -> void:
 	if (event.keycode != KEY_SPACE):
 		return
 		
+	start_game()
 	return

@@ -745,6 +745,7 @@ heat_increase = 10.0
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer" parent="Handlers/Music"]
 stream = ExtResource("16_0ld40")
+volume_db = -5.0
 autoplay = true
 
 [node name="World" type="Node3D" parent="."]
@@ -782,7 +783,8 @@ draw_pass_1 = SubResource("CylinderMesh_0ld40")
 
 [node name="Chunks" type="Node3D" parent="World"]
 script = ExtResource("15_muem4")
-total_level_chunks = 100
+total_level_chunks = 10
+metadata/_edit_lock_ = true
 
 [connection signal="game_start_requested" from="UI/MainMenu/PlayButton" to="Handlers/Game" method="_on_play_button_game_start_requested"]
 [connection signal="pressed" from="UI/MainMenu/PlayButton" to="UI/MainMenu/PlayButton" method="_on_pressed"]

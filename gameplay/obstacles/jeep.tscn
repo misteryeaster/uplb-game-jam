@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://kfffvkbinv0y"]
+
+[ext_resource type="ArrayMesh" uid="uid://b2kq8tyc1173p" path="res://assets/jeepney.obj" id="3_0ddol"]
+[ext_resource type="Script" uid="uid://cc5gcusciiljl" path="res://gameplay/obstacles/hitbox.gd" id="4_up00y"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m6o0d"]
+size = Vector3(3, 5, 11.979)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_up00y"]
+albedo_color = Color(0.331639, 0.331639, 0.331639, 1)
+
+[node name="Jeep" type="StaticBody3D"]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.617, -2.408)
+shape = SubResource("BoxShape3D_m6o0d")
+
+[node name="Jeepney" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.487706, 0, 0)
+material_overlay = SubResource("StandardMaterial3D_up00y")
+mesh = ExtResource("3_0ddol")
+skeleton = NodePath("../../Sidelines")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("4_up00y")
+damage = 2.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.617, -2.408)
+shape = SubResource("BoxShape3D_m6o0d")

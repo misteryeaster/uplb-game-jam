@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cekllirg7pdmx"
+path="res://.godot/imported/Drinking Power Up.wav-dd4a6827dbfc911465f35dadab497eae.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Drinking Power Up.wav"
+dest_files=["res://.godot/imported/Drinking Power Up.wav-dd4a6827dbfc911465f35dadab497eae.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

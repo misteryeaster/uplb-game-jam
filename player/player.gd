@@ -100,6 +100,15 @@ func _ready():
 	else:
 		printerr("Warning: Player heat_bar_node not assigned in Inspector!")
 
+func switch_lane(change: int):
+	if (current_lane == clamp(current_lane + change, -1, 1)):
+		return
+		
+	$Woosh.pitch_scale = randf_range(0.9, 1.1)
+	$Woosh.play()
+	
+	current_lane += change
+
 func _physics_process(delta: float) -> void:
 	if (!game_started):
 		return
@@ -134,10 +143,10 @@ func _physics_process(delta: float) -> void:
 	# Disable input during knockback stop duration
 	if not (_is_knocked_back and _knockback_timer > 0):
 		if (Input.is_action_just_pressed("move_left")):
-			current_lane -= 1
+			switch_lane(-1)
 			
 		if (Input.is_action_just_pressed("move_right")):
-			current_lane += 1
+			switch_lane(1)
 
 	global_position.x = lerp(global_position.x, current_lane * lane_spacing, 10 * delta)
 	move_and_slide()
@@ -243,11 +252,14 @@ func reset():
 	_knockback_timer = 0.0
 	_recovery_timer = 0.0
 	_knockback_velocity = 0.0
+	_effect_speed_multiplier = 1.0
 	just_reset.emit()
 
 func on_death():
 	game_started = false
+	
 	$Footsteps.stop()
+	
 	died.emit()
 	reset()
 
@@ -302,6 +314,8 @@ func pickup_energy():
 		if child is Timer and child.id == "energy":
 			existing_energy_timers.append(child)
 	
+	$Sting.pitch_scale = randf_range(0.995, 1.005)
+	$Sting.play()
 	# If we already have energy effects active, reset their duration instead of creating new ones
 	if existing_energy_timers.size() > 0:
 		print("Resetting energy effect duration.")
@@ -321,7 +335,7 @@ func pickup_energy():
 		
 	# Apply the effect multiplier
 	_effect_speed_multiplier = 2.0
-	
+
 	# Create a timer for this effect (the UI will automatically show via _process)
 	create_effect("energy", 5)
 
@@ -360,6 +374,5 @@ func check_win_condition():
 	if chunk_generator and chunk_generator.has_method("has_player_reached_end"):
 		if chunk_generator.has_player_reached_end():
 			player_won.emit()  # Emit the win signal
-			print("Player reached the end! You won!")
 			finished = true
 			

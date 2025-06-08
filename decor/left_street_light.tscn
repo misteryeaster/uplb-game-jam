@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5d33qnyeckxp"]
+
+[ext_resource type="Texture2D" uid="uid://djy4iluvptlmj" path="res://assets/lamppost.png" id="1_gto3q"]
+
+[node name="LeftStreetLight" type="Node3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.841788, 2.83288, 0)
+texture = ExtResource("1_gto3q")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
+light_energy = 5.09
+spot_range = 17.51

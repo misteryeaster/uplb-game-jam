@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://chafxp1mxwqlm"]
+[gd_scene load_steps=28 format=3 uid="uid://chafxp1mxwqlm"]
 
 [ext_resource type="Script" uid="uid://c2c3dugujwx7n" path="res://player/player.gd" id="1_qjkh3"]
 [ext_resource type="Script" uid="uid://64vjw851i02y" path="res://player/hurtbox.gd" id="2_g6k8r"]
@@ -8,6 +8,8 @@
 [ext_resource type="AudioStream" uid="uid://ci0hfmmpi2w46" path="res://assets/sfx/foosteps.wav" id="6_g6k8r"]
 [ext_resource type="Texture2D" uid="uid://d1q3p2f3bk7bs" path="res://assets/cursing.png" id="7_boad6"]
 [ext_resource type="Script" uid="uid://7otuyyimegu3" path="res://player/cursing.gd" id="7_rgyib"]
+[ext_resource type="AudioStream" uid="uid://cuoimo4kav4mj" path="res://assets/sfx/Woosh Switch Lane Sound.wav" id="9_hg6s5"]
+[ext_resource type="AudioStream" uid="uid://cekllirg7pdmx" path="res://assets/sfx/Drinking Power Up.wav" id="10_8t03j"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ya4ey"]
 
@@ -171,7 +173,7 @@ script = ExtResource("2_g6k8r")
 shape = SubResource("CapsuleShape3D_ya4ey")
 
 [node name="Timer" type="Timer" parent="Hurtbox"]
-wait_time = 2.0
+wait_time = 0.75
 one_shot = true
 
 [node name="PickupArea" type="Area3D" parent="."]
@@ -202,6 +204,7 @@ frame_progress = 0.229304
 
 [node name="Footsteps" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("6_g6k8r")
+volume_db = 5.0
 
 [node name="Cursing" type="Node3D" parent="."]
 script = ExtResource("7_rgyib")
@@ -215,6 +218,17 @@ frame_progress = 0.945136
 libraries = {
 &"": SubResource("AnimationLibrary_hg6s5")
 }
+
+[node name="Woosh" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("9_hg6s5")
+volume_db = -10.0
+
+[node name="Sting" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("10_8t03j")
+
+[node name="Water" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("10_8t03j")
+volume_db = 2.0
 
 [connection signal="just_reset" from="." to="Health" method="_on_player_just_reset"]
 [connection signal="was_hit" from="." to="Cursing" method="_on_player_was_hit"]
