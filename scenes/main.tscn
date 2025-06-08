@@ -495,6 +495,7 @@ draw_pass_1 = SubResource("CylinderMesh_0ld40")
 
 [node name="Chunks" type="Node3D" parent="World"]
 script = ExtResource("15_muem4")
+total_level_chunks = 36
 
 [connection signal="game_start_requested" from="UI/MainMenu/PlayButton" to="Handlers/Game" method="_on_play_button_game_start_requested"]
 [connection signal="pressed" from="UI/MainMenu/PlayButton" to="UI/MainMenu/PlayButton" method="_on_pressed"]
