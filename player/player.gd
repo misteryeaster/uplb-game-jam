@@ -131,14 +131,6 @@ func _physics_process(delta: float) -> void:
 
 	# Update footsteps tempo based on current speed
 	_update_footsteps_tempo()
-
-	if (!is_on_floor()):
-		if (Input.is_action_pressed("move_jump")):
-			velocity.y -= rise_gravity * delta
-		else:
-			velocity.y -= fall_gravity * delta
-	else:
-		velocity.y = 0
 		
 	# Disable input during knockback stop duration
 	if not (_is_knocked_back and _knockback_timer > 0):
@@ -375,4 +367,6 @@ func check_win_condition():
 		if chunk_generator.has_player_reached_end():
 			player_won.emit()  # Emit the win signal
 			finished = true
-			
+
+func _on_heat_heat_hit(damage: float) -> void:
+	$Health.health -= damage

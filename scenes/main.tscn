@@ -741,6 +741,8 @@ one_shot = true
 script = ExtResource("9_jbj1t")
 heat_increase = 10.0
 
+[node name="Timer" type="Timer" parent="Handlers/Heat"]
+
 [node name="Music" type="Node3D" parent="Handlers"]
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer" parent="Handlers/Music"]
@@ -809,7 +811,9 @@ metadata/_edit_lock_ = true
 [connection signal="game_started" from="Handlers/Game" to="World/Player" method="_on_game_game_started"]
 [connection signal="timeout" from="Handlers/Game/Timer" to="Handlers/Game" method="_on_timer_timeout"]
 [connection signal="heat_changed" from="Handlers/Heat" to="UI/HUD/HeatBar" method="_on_heat_heat_changed"]
+[connection signal="heat_hit" from="Handlers/Heat" to="World/Player" method="_on_heat_heat_hit"]
 [connection signal="heat_percentage_changed" from="Handlers/Heat" to="UI/HUD/HeatBar" method="_on_heat_heat_percentage_changed"]
+[connection signal="timeout" from="Handlers/Heat/Timer" to="Handlers/Heat" method="_on_timer_timeout"]
 [connection signal="cooled" from="World/Player" to="Handlers/Heat" method="_on_player_cooled"]
 [connection signal="died" from="World/Player" to="Handlers/Game" method="_on_player_died"]
 [connection signal="health_percentage_changed" from="World/Player" to="UI/HUD/HealthBar" method="_on_player_health_percentage_changed"]

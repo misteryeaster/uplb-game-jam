@@ -23,7 +23,7 @@ material = SubResource("StandardMaterial3D_5pjsp")
 size = Vector2(10, 25)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0x5u4"]
-size = Vector3(10, 1, 100)
+size = Vector3(10, 1, 175)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pk7r2"]
 albedo_texture = ExtResource("5_bb33j")
@@ -258,7 +258,7 @@ mesh = SubResource("PlaneMesh_tefeu")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Platform"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -37.5)
 shape = SubResource("BoxShape3D_0x5u4")
 
 [node name="LeftSideWalk" type="Node3D" parent="Platform"]
@@ -419,7 +419,7 @@ skeleton = NodePath("../..")
 [node name="JeepStation" type="Node3D" parent="."]
 
 [node name="Jeep" parent="JeepStation" instance=ExtResource("6_6acm3")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.5633, 1.42552, -55.1469)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -11.5633, 1.42552, -55.1469)
 
 [node name="Jeep2" parent="JeepStation" instance=ExtResource("6_6acm3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.5633, 1.42552, -62.1469)

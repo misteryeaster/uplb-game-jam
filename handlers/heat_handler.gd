@@ -1,10 +1,15 @@
 extends Node3D
 
+signal heat_hit(damage: float)
 signal heat_changed
 signal heat_percentage_changed
 
 @export var heat_increase: float
 @export var max_heat: float = 100
+
+@export var heat_damage: float = 1
+
+@onready var overheating: bool = false
 
 @onready var heat: float = 0:
 	set(value):
@@ -12,6 +17,14 @@ signal heat_percentage_changed
 		
 		heat_changed.emit(heat)
 		heat_percentage_changed.emit(heat / max_heat * 100)
+		
+		if (overheating && heat != max_heat):
+			$Timer.stop()
+		
+		if (heat == max_heat && !overheating):
+			$Timer.start()
+			
+		overheating = heat == max_heat
 		
 @onready var game_ongoing: bool = false
 		
@@ -31,3 +44,7 @@ func _on_game_game_ended() -> void:
 
 func _on_player_cooled(cool_amount: float) -> void:
 	heat -= cool_amount
+
+
+func _on_timer_timeout() -> void:
+	heat_hit.emit(heat_damage)
