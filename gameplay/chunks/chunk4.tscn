@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bdm1jx53l85xj"]
+[gd_scene load_steps=18 format=3 uid="uid://bdm1jx53l85xj"]
 
 [ext_resource type="PackedScene" uid="uid://c3wojpu7gleck" path="res://gameplay/obstacles/cone.tscn" id="1_iu8fk"]
 [ext_resource type="Texture2D" uid="uid://djy4iluvptlmj" path="res://assets/lamppost.png" id="2_e6xpo"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://b7itsqvnlxg33" path="res://assets/sidewalk.png" id="6_yn3k5"]
 [ext_resource type="PackedScene" uid="uid://bkhncyqw1m2xf" path="res://gameplay/pickups/water_pickup.tscn" id="7_khwxq"]
 [ext_resource type="PackedScene" uid="uid://cmqtrivu47oq6" path="res://gameplay/pickups/sting_pickup.tscn" id="8_3gwbo"]
+[ext_resource type="PackedScene" uid="uid://cj0k364owvbgl" path="res://gameplay/obstacles/fence.tscn" id="9_m6fpk"]
+[ext_resource type="Script" uid="uid://b5mcgppsvx7xv" path="res://gameplay/obstacles/obstacle.gd" id="10_yc00q"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5pjsp"]
 diffuse_mode = 1
@@ -48,9 +50,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.83646, 0.28335, -12.8173)
 
 [node name="Cone3" parent="Obstacles" instance=ExtResource("1_iu8fk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.152398, 0.308675, -9.80564)
-
-[node name="Cone3" parent="Obstacles/Cone3" instance=ExtResource("1_iu8fk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.152398, 0.308675, 20.6131)
 
 [node name="Decor" type="Node3D" parent="."]
 
@@ -236,7 +235,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5134, 0.387047, 14.0176)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.93235, 0.387047, 22.5319)
 
 [node name="EnergyDrinkPickup3" parent="Pickups" instance=ExtResource("8_3gwbo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.66273, 0, -6.81891)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.88113, 0.0328121, -6.88394)
 
 [node name="EnergyDrinkPickup4" parent="Pickups" instance=ExtResource("8_3gwbo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05678, 0, -38.2042)
+
+[node name="fence" parent="." instance=ExtResource("9_m6fpk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77272, 0.156524, 11.3992)
+script = ExtResource("10_yc00q")
+damage = 1.0

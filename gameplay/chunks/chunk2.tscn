@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://biccgpexyio6l"]
+[gd_scene load_steps=18 format=3 uid="uid://biccgpexyio6l"]
 
 [ext_resource type="PackedScene" uid="uid://c3wojpu7gleck" path="res://gameplay/obstacles/cone.tscn" id="1_d0c8b"]
 [ext_resource type="Texture2D" uid="uid://djy4iluvptlmj" path="res://assets/lamppost.png" id="2_iu30k"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://b7itsqvnlxg33" path="res://assets/sidewalk.png" id="6_ocq3p"]
 [ext_resource type="PackedScene" uid="uid://bkhncyqw1m2xf" path="res://gameplay/pickups/water_pickup.tscn" id="7_ybxja"]
 [ext_resource type="PackedScene" uid="uid://cmqtrivu47oq6" path="res://gameplay/pickups/sting_pickup.tscn" id="8_yd8t2"]
+[ext_resource type="PackedScene" uid="uid://cj0k364owvbgl" path="res://gameplay/obstacles/fence.tscn" id="9_53q3m"]
+[ext_resource type="Script" uid="uid://b5mcgppsvx7xv" path="res://gameplay/obstacles/obstacle.gd" id="10_ckt52"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5pjsp"]
 diffuse_mode = 1
@@ -41,10 +43,13 @@ size = Vector2(2, 25)
 [node name="Obstacles" type="Node3D" parent="."]
 
 [node name="Cone" parent="Obstacles" instance=ExtResource("1_d0c8b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.78542, 0.28335, -29.8864)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8514, 0.28335, -29.8864)
 
 [node name="Cone2" parent="Obstacles" instance=ExtResource("1_d0c8b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.70156, 0.28335, -36.4394)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.01513, 0.28335, -36.4394)
+
+[node name="Cone4" parent="Obstacles" instance=ExtResource("1_d0c8b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15255, 0.28335, -36.4394)
 
 [node name="Cone3" parent="Obstacles" instance=ExtResource("1_d0c8b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.76079, 0.28335, -42.8184)
@@ -134,7 +139,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28683, 3.1925, 0)
 texture = ExtResource("3_53q3m")
 
 [node name="Overpass" parent="Decor" instance=ExtResource("4_ckt52")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.589273, 1.0119, -2.37763)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.600215, 0.988828, -2.35529)
 
 [node name="Platform" type="StaticBody3D" parent="."]
 
@@ -223,17 +228,18 @@ skeleton = NodePath("../..")
 [node name="WaterPickup" parent="Pickups" instance=ExtResource("7_ybxja")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.235528, 0.387047, 1.4953)
 
-[node name="WaterPickup2" parent="Pickups" instance=ExtResource("7_ybxja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.17921, 0.387047, 7.01637)
-
-[node name="WaterPickup3" parent="Pickups" instance=ExtResource("7_ybxja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5134, 0.387047, 14.0176)
-
 [node name="WaterPickup4" parent="Pickups" instance=ExtResource("7_ybxja")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.93235, 0.387047, 22.5319)
 
-[node name="EnergyDrinkPickup3" parent="Pickups" instance=ExtResource("8_yd8t2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.66273, 0, -6.81891)
-
 [node name="EnergyDrinkPickup4" parent="Pickups" instance=ExtResource("8_yd8t2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05678, 0, -38.2042)
+
+[node name="fence" parent="." instance=ExtResource("9_53q3m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.89175, 0.156524, 19.8292)
+script = ExtResource("10_ckt52")
+damage = 1.0
+
+[node name="fence2" parent="." instance=ExtResource("9_53q3m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75241, 0.156524, -14.0145)
+script = ExtResource("10_ckt52")
+damage = 1.0

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cj0k364owvbgl"]
+
+[ext_resource type="Script" uid="uid://b5mcgppsvx7xv" path="res://gameplay/obstacles/obstacle.gd" id="1_4whlc"]
+[ext_resource type="Texture2D" uid="uid://cxsy12y6msdms" path="res://assets/fence.png" id="2_k8prj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hytc5"]
+size = Vector3(4.14063, 1.49313, 0.4)
+
+[node name="fence" type="Area3D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_4whlc")
+damage = 1.0
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0438395, 0.826875, 0.0329576)
+texture = ExtResource("2_k8prj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0127752, 0.863467, 0.0332381)
+shape = SubResource("BoxShape3D_hytc5")

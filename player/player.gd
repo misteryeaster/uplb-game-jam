@@ -20,6 +20,12 @@ signal picked_up
 @export_category("effects")
 @export var effect_limit: int = 3
 
+# --- NEW: Knockback Settings ---
+@export_category("Knockback")
+@export var knockback_force: float = 200.0  # How far back the player gets knocked
+@export var knockback_recovery_time: float = 1.0  # Time to recover to full speed
+@export var knockback_stop_duration: float = 0.2  # Time player stays completely stopped
+
 # --- NEW: Heat Integration ---
 @export_category("Heat Interaction")
 @export var heat_bar_node: Node
@@ -34,6 +40,9 @@ signal picked_up
 @export var min_footsteps_pitch: float = 0.5
 # Maximum pitch when speed is at its highest
 @export var max_footsteps_pitch: float = 2.0
+
+@export_category("UI")
+@export var energy_buff_bar: Control
 
 var base_effect_timer: PackedScene = preload("res://gameplay/player/effect_timer.tscn")
 
@@ -59,6 +68,14 @@ var base_effect_timer: PackedScene = preload("res://gameplay/player/effect_timer
 var _effect_speed_multiplier: float = 1.0
 # Multiplier calculated from heat (defaults to 1.0)
 var _heat_speed_multiplier: float = 1.0
+# Multiplier for knockback recovery (defaults to 1.0)
+var _knockback_speed_multiplier: float = 1.0
+
+# --- NEW: Knockback State Variables ---
+var _is_knocked_back: bool = false
+var _knockback_velocity: float = 0.0
+var _knockback_timer: float = 0.0
+var _recovery_timer: float = 0.0
 
 func _ready():
 	current_lane = 0
@@ -80,11 +97,18 @@ func _physics_process(delta: float) -> void:
 	if (!game_started):
 		return
 
+	# Handle knockback state first
+	_handle_knockback(delta)
+
 	# Calculate the effective speed rate based on base speed and multipliers
-	var current_speed_rate = base_movement_speed * _effect_speed_multiplier * _heat_speed_multiplier
+	var current_speed_rate = base_movement_speed * _effect_speed_multiplier * _heat_speed_multiplier * _knockback_speed_multiplier
 
 	# Apply the speed rate to the Z velocity (negative because moving forward on -Z)
-	velocity.z = -current_speed_rate * delta
+	# During knockback, we use the knockback velocity instead
+	if _is_knocked_back and _knockback_timer > 0:
+		velocity.z = _knockback_velocity * delta
+	else:
+		velocity.z = -current_speed_rate * delta
 
 	# Update footsteps tempo based on current speed
 	_update_footsteps_tempo()
@@ -97,22 +121,91 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y = 0
 		
-	if (Input.is_action_just_pressed("move_left")):
-		current_lane -= 1
-		
-	if (Input.is_action_just_pressed("move_right")):
-		current_lane += 1
+	# Disable input during knockback stop duration
+	if not (_is_knocked_back and _knockback_timer > 0):
+		if (Input.is_action_just_pressed("move_left")):
+			current_lane -= 1
+			
+		if (Input.is_action_just_pressed("move_right")):
+			current_lane += 1
 
 	global_position.x = lerp(global_position.x, current_lane * lane_spacing, 10 * delta)
 	move_and_slide()
+
+# --- NEW: Handle knockback logic ---
+func _handle_knockback(delta: float):
+	if not _is_knocked_back:
+		return
+	
+	# Handle the initial knockback stop phase
+	if _knockback_timer > 0:
+		_knockback_timer -= delta
+		if _knockback_timer <= 0:
+			# Start recovery phase
+			_recovery_timer = knockback_recovery_time
+			_knockback_velocity = 0.0
+		return
+	
+	# Handle the recovery phase
+	if _recovery_timer > 0:
+		_recovery_timer -= delta
+		# Gradually increase speed multiplier from 0 to 1
+		var recovery_progress = 1.0 - (_recovery_timer / knockback_recovery_time)
+		_knockback_speed_multiplier = lerp(0.0, 1.0, recovery_progress)
+		
+		if _recovery_timer <= 0:
+			# Recovery complete
+			_is_knocked_back = false
+			_knockback_speed_multiplier = 1.0
+
+# --- NEW: Function to trigger knockback ---
+func trigger_knockback():
+	if _is_knocked_back:
+		return  # Already knocked back, don't stack
+	
+	_is_knocked_back = true
+	_knockback_timer = knockback_stop_duration
+	_recovery_timer = 0.0
+	_knockback_speed_multiplier = 0.0
+	
+	# Set initial knockback velocity (positive because we're moving backward/upward in Z)
+	_knockback_velocity = knockback_force
+	
+	print("Player knocked back!")
+
+# Add this new function to track energy timer progress:
+func _process(delta: float):
+	# Update energy buff UI if active
+	if energy_buff_bar:
+		_update_energy_buff_ui()
+
+func _update_energy_buff_ui():
+	# Find active energy timers
+	var active_energy_timer: Timer = null
+	for child in $Effects.get_children():
+		if child is Timer and child.id == "energy":
+			active_energy_timer = child
+			break
+	
+	if active_energy_timer and active_energy_timer.time_left > 0:
+		var remaining_time = active_energy_timer.time_left
+		if not energy_buff_bar.is_active:
+			# Start showing the bar if it's not already active
+			energy_buff_bar.show_energy_buff(active_energy_timer.wait_time)
+		else:
+			# Update the existing bar
+			energy_buff_bar.update_energy_buff(remaining_time)
+	elif energy_buff_bar.is_active:
+		# Hide the bar when no energy effect is active
+		energy_buff_bar.hide_energy_buff()
 
 # --- NEW: Function to update footsteps tempo ---
 func _update_footsteps_tempo():
 	if !$Footsteps:
 		return
 		
-	# Calculate the total speed multiplier
-	var total_speed_multiplier = _effect_speed_multiplier * _heat_speed_multiplier
+	# Calculate the total speed multiplier (including knockback)
+	var total_speed_multiplier = _effect_speed_multiplier * _heat_speed_multiplier * _knockback_speed_multiplier
 	
 	# Calculate the pitch based on speed multiplier
 	# This maps the speed multiplier to a pitch range
@@ -132,6 +225,12 @@ func _update_footsteps_tempo():
 func reset():
 	current_lane = 0
 	global_position = initial_position
+	# Reset knockback state
+	_is_knocked_back = false
+	_knockback_speed_multiplier = 1.0
+	_knockback_timer = 0.0
+	_recovery_timer = 0.0
+	_knockback_velocity = 0.0
 	just_reset.emit()
 
 func on_death():
@@ -148,6 +247,13 @@ func _on_game_game_started() -> void:
 
 func _on_health_depleted() -> void:
 	on_death()
+
+# --- MODIFIED: Add knockback trigger when health changes (damage taken) ---
+func _on_health_health_changed(health: float) -> void:
+	health_changed.emit(health)
+	# Trigger knockback when health decreases (damage taken)
+	# You might want to add additional logic here to only trigger on damage, not healing
+	trigger_knockback()
 
 func create_effect(effect_id: String, duration: float):
 	var new_effect_timer: Timer = base_effect_timer.instantiate()
@@ -186,6 +292,10 @@ func pickup_energy():
 		for timer in existing_energy_timers:
 			timer.wait_time = 5.0  # Reset to full duration
 			timer.start()  # Restart the timer
+		
+		# Refresh the UI bar
+		if energy_buff_bar:
+			energy_buff_bar.reset_energy_buff(5.0)
 		return
 	
 	# Check if we've hit the effect limit (only matters for new effects)
@@ -196,7 +306,7 @@ func pickup_energy():
 	# Apply the effect multiplier
 	_effect_speed_multiplier = 2.0
 	
-	# Create a timer for this effect
+	# Create a timer for this effect (the UI will automatically show via _process)
 	create_effect("energy", 5)
 
 func pickup(pickup_id: String):
@@ -209,9 +319,6 @@ func pickup(pickup_id: String):
 
 func _on_pickup_area_picked_up(pickup_id: String) -> void:
 	pickup(pickup_id)
-
-func _on_health_health_changed(health: float) -> void:
-	health_changed.emit(health)
 
 func _on_health_health_percentage_changed(health_percentage: float) -> void:
 	health_percentage_changed.emit(health_percentage)
