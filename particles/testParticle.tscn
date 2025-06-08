@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://d4dw227u7d2r2"]
+
+[ext_resource type="Shader" uid="uid://cgo170f02h8nh" path="res://particles/testParticle.gdshader" id="1_p6vl2"]
+[ext_resource type="Texture2D" uid="uid://ecc5ppuybd26" path="res://assets/circle.png" id="2_voxut"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rk7sk"]
+shader = ExtResource("1_p6vl2")
+shader_parameter/pixel_size = 1.0
+shader_parameter/line_thickness = 1.009
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/enable_pixelation = true
+shader_parameter/enable_outline = true
+
+[sub_resource type="Curve" id="Curve_pfw8a"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 0.921348), -4.96629, -4.96629, 0, 0, Vector2(1, 0), -1.80592, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_i8ndr"]
+curve = SubResource("Curve_pfw8a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y3xbh"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 300.0
+gravity = Vector3(0, -300, 0)
+scale_min = 0.01
+scale_max = 0.02
+scale_curve = SubResource("CurveTexture_i8ndr")
+color = Color(0, 0, 0, 1)
+
+[node name="TestParticle" type="Node2D"]
+position = Vector2(-51, 116)
+scale = Vector2(1, 0.955146)
+
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+material = SubResource("ShaderMaterial_rk7sk")
+scale = Vector2(8.66762, 8.66762)
+fit_margin = 1024.0
+clear_margin = 1024.0
+
+[node name="MainParticles" type="GPUParticles2D" parent="CanvasGroup"]
+position = Vector2(94.0281, -22.7085)
+scale = Vector2(0.115621, 0.119625)
+amount = 50
+texture = ExtResource("2_voxut")
+randomness = 1.0
+use_fixed_seed = true
+seed = 2165908533
+collision_base_size = 0.0
+process_material = SubResource("ParticleProcessMaterial_y3xbh")
