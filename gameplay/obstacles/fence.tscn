@@ -17,5 +17,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0438395, 0.826875, 0.03295
 texture = ExtResource("2_k8prj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0127752, 0.863467, 0.0332381)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0127752, 0.863467, -0.155286)
 shape = SubResource("BoxShape3D_hytc5")

@@ -1,20 +1,15 @@
-[gd_scene load_steps=17 format=3 uid="uid://bdm1jx53l85xj"]
+[gd_scene load_steps=12 format=3 uid="uid://bphtpu4vy0nls"]
 
-[ext_resource type="PackedScene" uid="uid://c3wojpu7gleck" path="res://gameplay/obstacles/cone.tscn" id="1_iu8fk"]
-[ext_resource type="Texture2D" uid="uid://djy4iluvptlmj" path="res://assets/lamppost.png" id="2_e6xpo"]
-[ext_resource type="Texture2D" uid="uid://coykve2dw0o3i" path="res://assets/powerline.png" id="3_m6fpk"]
-[ext_resource type="PackedScene" uid="uid://dvhmoye0ycyex" path="res://gameplay/Tunnel.tscn" id="4_yc00q"]
-[ext_resource type="Texture2D" uid="uid://brun1rhsn0t00" path="res://assets/highway.png" id="5_ivhup"]
-[ext_resource type="Texture2D" uid="uid://b7itsqvnlxg33" path="res://assets/sidewalk.png" id="6_yn3k5"]
-[ext_resource type="PackedScene" uid="uid://bkhncyqw1m2xf" path="res://gameplay/pickups/water_pickup.tscn" id="7_khwxq"]
-[ext_resource type="PackedScene" uid="uid://cmqtrivu47oq6" path="res://gameplay/pickups/sting_pickup.tscn" id="8_3gwbo"]
-[ext_resource type="PackedScene" uid="uid://cj0k364owvbgl" path="res://gameplay/obstacles/fence.tscn" id="9_m6fpk"]
+[ext_resource type="Texture2D" uid="uid://djy4iluvptlmj" path="res://assets/lamppost.png" id="1_aq2ma"]
+[ext_resource type="Texture2D" uid="uid://coykve2dw0o3i" path="res://assets/powerline.png" id="2_iubfb"]
+[ext_resource type="Texture2D" uid="uid://brun1rhsn0t00" path="res://assets/highway.png" id="3_jdmw5"]
+[ext_resource type="Texture2D" uid="uid://b7itsqvnlxg33" path="res://assets/sidewalk.png" id="4_x3uu7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5pjsp"]
 diffuse_mode = 1
 specular_mode = 1
 albedo_color = Color(0.716296, 0.716296, 0.716296, 1)
-albedo_texture = ExtResource("5_ivhup")
+albedo_texture = ExtResource("3_jdmw5")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_tefeu"]
 material = SubResource("StandardMaterial3D_5pjsp")
@@ -24,31 +19,23 @@ size = Vector2(10, 25)
 size = Vector3(10, 1, 100)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pk7r2"]
-albedo_texture = ExtResource("6_yn3k5")
+albedo_texture = ExtResource("4_x3uu7")
 
 [sub_resource type="BoxMesh" id="BoxMesh_m6o0d"]
 size = Vector3(2, 1, 100)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tw8ii"]
 albedo_color = Color(0.417257, 0.417257, 0.417257, 1)
-albedo_texture = ExtResource("6_yn3k5")
+albedo_texture = ExtResource("4_x3uu7")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_pk7r2"]
 material = SubResource("StandardMaterial3D_tw8ii")
 size = Vector2(2, 25)
 
-[node name="Chunk4" type="Node3D"]
+[node name="ChunkStart" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0619297, 0.000120163, 0.0242667)
 
 [node name="Obstacles" type="Node3D" parent="."]
-
-[node name="Cone" parent="Obstacles" instance=ExtResource("1_iu8fk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.92009, 0.28335, -16.1145)
-
-[node name="Cone2" parent="Obstacles" instance=ExtResource("1_iu8fk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.83646, 0.28335, -12.8173)
-
-[node name="Cone3" parent="Obstacles" instance=ExtResource("1_iu8fk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.152398, 0.308675, -9.80564)
 
 [node name="Decor" type="Node3D" parent="."]
 
@@ -57,7 +44,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98158, 0, 0)
 
 [node name="Sprite3D" type="Sprite3D" parent="Decor/LeftStreetLight"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.841788, 2.83288, 0)
-texture = ExtResource("2_e6xpo")
+texture = ExtResource("1_aq2ma")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Decor/LeftStreetLight"]
 transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
@@ -70,7 +57,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.91702, 0, 0)
 [node name="Sprite3D" type="Sprite3D" parent="Decor/RightStreetLight"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.806036, 2.83288, 0)
 flip_h = true
-texture = ExtResource("2_e6xpo")
+texture = ExtResource("1_aq2ma")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Decor/RightStreetLight"]
 transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
@@ -82,7 +69,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98158, 0, 0)
 
 [node name="Sprite3D" type="Sprite3D" parent="Decor/LeftStreetLight2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.841788, 2.83288, 0)
-texture = ExtResource("2_e6xpo")
+texture = ExtResource("1_aq2ma")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Decor/LeftStreetLight2"]
 transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
@@ -95,7 +82,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.91702, 0, 0)
 [node name="Sprite3D" type="Sprite3D" parent="Decor/RightStreetLight2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.806036, 2.83288, 0)
 flip_h = true
-texture = ExtResource("2_e6xpo")
+texture = ExtResource("1_aq2ma")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Decor/RightStreetLight2"]
 transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
@@ -107,7 +94,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98158, 0, -50)
 
 [node name="Sprite3D" type="Sprite3D" parent="Decor/LeftStreetLight3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.841788, 2.83288, 0)
-texture = ExtResource("2_e6xpo")
+texture = ExtResource("1_aq2ma")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Decor/LeftStreetLight3"]
 transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
@@ -120,7 +107,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.91702, 0, -50)
 [node name="Sprite3D" type="Sprite3D" parent="Decor/RightStreetLight3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.806036, 2.83288, 0)
 flip_h = true
-texture = ExtResource("2_e6xpo")
+texture = ExtResource("1_aq2ma")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Decor/RightStreetLight3"]
 transform = Transform3D(1, 0, 0, 0, -5.96046e-08, 1, 0, -1, -5.96046e-08, 1.49156, 5.14383, 0)
@@ -132,10 +119,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.21279, 0, -2.12344)
 
 [node name="Sprite3D" type="Sprite3D" parent="Decor/Powerline"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28683, 3.1925, 0)
-texture = ExtResource("3_m6fpk")
-
-[node name="Tunnel" parent="Decor" instance=ExtResource("4_yc00q")]
-transform = Transform3D(-1.23092e-07, 0, 3.12214, 0, 3.65047, 0, -2.81603, 0, -1.36473e-07, 0.76375, 0.118865, 6.12453)
+texture = ExtResource("2_iubfb")
 
 [node name="Platform" type="StaticBody3D" parent="."]
 
@@ -220,24 +204,3 @@ mesh = SubResource("PlaneMesh_pk7r2")
 skeleton = NodePath("../..")
 
 [node name="Pickups" type="Node3D" parent="."]
-
-[node name="WaterPickup" parent="Pickups" instance=ExtResource("7_khwxq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.235528, 0.387047, 1.4953)
-
-[node name="WaterPickup2" parent="Pickups" instance=ExtResource("7_khwxq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.17921, 0.387047, 7.01637)
-
-[node name="WaterPickup3" parent="Pickups" instance=ExtResource("7_khwxq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5134, 0.387047, 14.0176)
-
-[node name="WaterPickup4" parent="Pickups" instance=ExtResource("7_khwxq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.93235, 0.387047, 22.5319)
-
-[node name="EnergyDrinkPickup3" parent="Pickups" instance=ExtResource("8_3gwbo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.88113, 0.0328121, -6.88394)
-
-[node name="EnergyDrinkPickup4" parent="Pickups" instance=ExtResource("8_3gwbo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05678, 0, -38.2042)
-
-[node name="fence" parent="." instance=ExtResource("9_m6fpk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77272, 0.156524, 11.3992)

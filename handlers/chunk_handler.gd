@@ -3,13 +3,18 @@ extends Node3D
 # --- Exports ---
 @export var showable_chunks: int = 5 # How many chunks ahead of the player to display
 @export var chunk_size: float = 100 # The size of each chunk along the Z axis
+@export var total_level_chunks: int = 35 # Total number of chunks in the level (including start and end)
 
 # The path where your chunk scene files are located
 const CHUNK_DIR_PATH = "res://gameplay/chunks/"
+const START_CHUNK_PATH = "res://gameplay/chunks/chunkstart.tscn"
+const END_CHUNK_PATH = "res://gameplay/chunks/chunkend.tscn"
 
 # Array to hold the different chunk scenes loaded from the directory
 # No longer exported, as it's populated automatically
-var chunk_scenes: Array[PackedScene] = [] # Explicitly typed array
+var chunk_scenes: Array[PackedScene] = [] # Explicitly typed array for random middle chunks
+var start_chunk_scene: PackedScene
+var end_chunk_scene: PackedScene
 
 # --- Onready Variables ---
 # Using get_owner_or_null() and get_node_or_null() is safer
@@ -23,18 +28,33 @@ var chunk_scenes: Array[PackedScene] = [] # Explicitly typed array
 
 # Function to create a chunk at a specific index
 func create_chunk(index: int):
-	# Check if any chunk scenes were successfully loaded from the directory
-	if chunk_scenes.is_empty():
-		print("WARNING: Cannot create chunk ", index, ". No chunk scenes available in 'chunk_scenes' array! Check if any .tscn files are in ", CHUNK_DIR_PATH)
-		return # Cannot create a chunk if no scenes are provided
-
-	# Select a random scene from the array
-	# randi_range returns an integer between the two arguments (inclusive)
-	var random_index = randi_range(0, chunk_scenes.size() - 1)
-	var random_scene = chunk_scenes[random_index]
+	var scene_to_use: PackedScene
 	
-	# Instantiate the randomly selected scene
-	var new_chunk: Node3D = random_scene.instantiate()
+	# Determine which scene to use based on the chunk index
+	if index == 0:
+		# First chunk - use start chunk
+		if start_chunk_scene == null:
+			print("WARNING: Cannot create start chunk. chunkstart.tscn not found at ", START_CHUNK_PATH)
+			return
+		scene_to_use = start_chunk_scene
+	elif index == total_level_chunks - 1:
+		# Last chunk - use end chunk
+		if end_chunk_scene == null:
+			print("WARNING: Cannot create end chunk. chunkend.tscn not found at ", END_CHUNK_PATH)
+			return
+		scene_to_use = end_chunk_scene
+	else:
+		# Middle chunks - use random selection
+		if chunk_scenes.is_empty():
+			print("WARNING: Cannot create chunk ", index, ". No chunk scenes available in 'chunk_scenes' array! Check if any .tscn files are in ", CHUNK_DIR_PATH)
+			return
+		
+		# Select a random scene from the array
+		var random_index = randi_range(0, chunk_scenes.size() - 1)
+		scene_to_use = chunk_scenes[random_index]
+	
+	# Instantiate the selected scene
+	var new_chunk: Node3D = scene_to_use.instantiate()
 	
 	# Position the chunk based on its index
 	# Assuming progression is along the negative Z axis, hence Vector3.FORWARD * index * chunk_size
@@ -44,7 +64,7 @@ func create_chunk(index: int):
 	new_chunk.name = str(index)
 	
 	add_child(new_chunk)
-	# print("Created chunk ", index, " using scene from path:", random_scene.get_path()) # Optional debug print
+	# print("Created chunk ", index, " using appropriate scene") # Optional debug print
 
 # Function to update which chunks should be present
 func update_chunks():
@@ -52,7 +72,10 @@ func update_chunks():
 	var chunks_to_keep = []
 	# We want to keep chunks from the current one up to showable_chunks ahead
 	for i in range(showable_chunks):
-		chunks_to_keep.append(known_current_chunk + i)
+		var chunk_index = known_current_chunk + i
+		# Only keep chunks that are within the level bounds
+		if chunk_index >= 0 and chunk_index < total_level_chunks:
+			chunks_to_keep.append(chunk_index)
 		
 	# print("Expected chunks to keep: ", chunks_to_keep) # Optional debug print
 	
@@ -99,7 +122,13 @@ func get_current_chunk():
 		print("WARNING: chunk_size is 0! Cannot calculate current chunk.")
 		return known_current_chunk
 
-	return int(-player.global_position.z / chunk_size)
+	var calculated_chunk = int(-player.global_position.z / chunk_size)
+	# Clamp the chunk index to stay within level bounds
+	return clamp(calculated_chunk, 0, total_level_chunks - 1)
+
+# Function to check if player has reached the end of the level
+func has_player_reached_end() -> bool:
+	return get_current_chunk() >= total_level_chunks - 1
 
 # --- Helper Function to Load Scenes from Directory ---
 
@@ -120,6 +149,11 @@ func _load_chunk_scenes_from_directory(path: String) -> Array[PackedScene]:
 			# We also want to skip hidden files (names starting with '.')
 			if not dir.current_is_dir() and not file_name.begins_with("."):
 				if file_name.ends_with(".tscn"): # Check if the file is a .tscn scene file
+					# Skip the start and end chunk files as they're loaded separately
+					if file_name == "chunkstart.tscn" or file_name == "chunkend.tscn":
+						file_name = dir.get_next()
+						continue
+					
 					var full_path = path.path_join(file_name) # Construct the full resource path (e.g., "res://gameplay/chunks/chunk1.tscn")
 					var loaded_resource = load(full_path) # Load the resource
 
@@ -141,20 +175,50 @@ func _load_chunk_scenes_from_directory(path: String) -> Array[PackedScene]:
 
 	return loaded_scenes # This now returns an Array[PackedScene]
 
+# Function to load the start and end chunk scenes
+func _load_special_chunks():
+	# Load start chunk
+	if ResourceLoader.exists(START_CHUNK_PATH):
+		start_chunk_scene = load(START_CHUNK_PATH)
+		if start_chunk_scene and start_chunk_scene is PackedScene:
+			print("Loaded start chunk scene from: ", START_CHUNK_PATH)
+		else:
+			print("ERROR: Failed to load start chunk scene from: ", START_CHUNK_PATH)
+	else:
+		print("ERROR: Start chunk scene not found at: ", START_CHUNK_PATH)
+	
+	# Load end chunk
+	if ResourceLoader.exists(END_CHUNK_PATH):
+		end_chunk_scene = load(END_CHUNK_PATH)
+		if end_chunk_scene and end_chunk_scene is PackedScene:
+			print("Loaded end chunk scene from: ", END_CHUNK_PATH)
+		else:
+			print("ERROR: Failed to load end chunk scene from: ", END_CHUNK_PATH)
+	else:
+		print("ERROR: End chunk scene not found at: ", END_CHUNK_PATH)
+
 # --- Godot Engine Callbacks ---
 
 func _ready() -> void:
 	# Seed the random number generator
 	randomize()
 
+	# Load the special start and end chunks
+	_load_special_chunks()
+
 	# Load chunk scenes from the specified directory before creating any chunks
 	# The return value now correctly matches the type of chunk_scenes
 	chunk_scenes = _load_chunk_scenes_from_directory(CHUNK_DIR_PATH)
 
-	# Check if any scenes were loaded
+	# Check if any middle chunk scenes were loaded
 	if chunk_scenes.is_empty():
-		print("FATAL ERROR: No chunk scenes loaded from", CHUNK_DIR_PATH, ". Please place your chunk#.tscn files there.")
-		# Optionally, you could disable this script or stop the game here if no chunks are loaded
+		print("WARNING: No middle chunk scenes loaded from", CHUNK_DIR_PATH, ". Only start and end chunks will be available.")
+
+	# Validate that we have the essential chunks
+	if start_chunk_scene == null:
+		print("FATAL ERROR: Start chunk scene (chunkstart.tscn) not found!")
+	if end_chunk_scene == null:
+		print("FATAL ERROR: End chunk scene (chunkend.tscn) not found!")
 
 	# Ensure the player node was found
 	if not is_instance_valid(player):
@@ -162,14 +226,14 @@ func _ready() -> void:
 		# This script won't work without the player node
 
 	# Initialize the chunks based on the player's starting position
-	# Only update chunks if player node is valid AND we loaded scenes
-	if is_instance_valid(player) and not chunk_scenes.is_empty():
+	# Only update chunks if player node is valid AND we have at least start/end scenes
+	if is_instance_valid(player) and (start_chunk_scene != null or end_chunk_scene != null):
 		update_chunks()
 
 func _physics_process(_delta: float) -> void:
 	# Only update chunks if player node is valid and we have scenes loaded
-	if not is_instance_valid(player) or chunk_scenes.is_empty():
-		return # Do nothing if player is missing or no chunks were loaded
+	if not is_instance_valid(player):
+		return # Do nothing if player is missing
 
 	# Determine the player's current chunk index
 	var current_chunk: int = get_current_chunk()
@@ -179,3 +243,8 @@ func _physics_process(_delta: float) -> void:
 		# If they have, update the known current chunk and refresh the visible chunks
 		known_current_chunk = current_chunk
 		update_chunks()
+		
+	# Optional: Check if player has reached the end and emit a signal or call a function
+	# if has_player_reached_end():
+	#     # Handle end of level logic here
+	#     pass
