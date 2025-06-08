@@ -68,6 +68,8 @@ var base_effect_timer: PackedScene = preload("res://gameplay/player/effect_timer
 @onready var game_started: bool = false
 @onready var applied_effects: Array[String] = []
 
+@onready var finished: bool = false
+
 # --- NEW: Speed Multipliers ---
 # Multiplier from effects like "energy" (defaults to 1.0)
 var _effect_speed_multiplier: float = 1.0
@@ -251,9 +253,13 @@ func on_death():
 
 func _on_game_game_started() -> void:
 	$Footsteps.play()
+	
 	game_started = true
+	finished = false
 	# Set initial footsteps tempo
 	_update_footsteps_tempo()
+	
+	just_reset.emit()
 
 func _on_health_depleted() -> void:
 	on_death()
@@ -348,10 +354,12 @@ func _on_heat_bar_heat_changed_by_player(new_heat_value: float) -> void:
 	_heat_speed_multiplier = lerp(1.0, min_speed_factor_at_max_heat, heat_percentage)
 
 func check_win_condition():
+	if (finished):
+		return
+		
 	if chunk_generator and chunk_generator.has_method("has_player_reached_end"):
 		if chunk_generator.has_player_reached_end():
-			game_started = false  # Stop the game
-			$Footsteps.stop()
 			player_won.emit()  # Emit the win signal
 			print("Player reached the end! You won!")
+			finished = true
 			

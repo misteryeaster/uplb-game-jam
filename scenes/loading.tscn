@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsqgxlhmsx1py"]
+[gd_scene load_steps=8 format=3 uid="uid://dsqgxlhmsx1py"]
 
 [ext_resource type="Script" uid="uid://lr3io4j7bv6h" path="res://scenes/loading.gd" id="1_ir5ef"]
 [ext_resource type="FontFile" uid="uid://dea4y15nl8qd4" path="res://assets/fonts/ExcelsiorSans.ttf" id="2_yc7uc"]
 [ext_resource type="Texture2D" uid="uid://bu7rtcgekeca8" path="res://assets/ui/liver.png" id="3_dhqfv"]
+[ext_resource type="VideoStream" uid="uid://xilglvm824ip" path="res://assets/videos/Slither Audio Studio.ogv" id="4_101rs"]
 
 [sub_resource type="Animation" id="Animation_ir5ef"]
 length = 0.001
@@ -42,10 +43,22 @@ tracks/2/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/Screen/AspectRatioContainer/VideoStreamPlayer:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_yc7uc"]
 resource_name = "load"
-length = 7.0
+length = 14.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -53,7 +66,7 @@ tracks/0/path = NodePath("UI/Screen/Overlay:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(1.1, 2.36667, 4.16667, 6.7),
+"times": PackedFloat32Array(7, 9.3, 11.1, 13.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -65,7 +78,7 @@ tracks/1/path = NodePath("UI/Screen/Label:visible_ratio")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1.53333, 3.03333, 4.16667, 5.63333),
+"times": PackedFloat32Array(8.46666, 9.96666, 11.1, 12.5667),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 1.0, 1.0, 0.0]
@@ -77,7 +90,7 @@ tracks/2/path = NodePath("UI/Screen/Label2:visible_ratio")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(1.53333, 2.73333, 4.15046, 5.29287),
+"times": PackedFloat32Array(8.46666, 9.66666, 11.0838, 12.2262),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 1.0, 1.0, 0.0]
@@ -89,11 +102,40 @@ tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(6.96667),
+"times": PackedFloat32Array(13.8333),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"start_game"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UI/Screen/AspectRatioContainer/VideoStreamPlayer:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.4, 6.66667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UI/Screen/AspectRatioContainer/VideoStreamPlayer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.366667, 6.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"play"
+}, {
+"args": [],
+"method": &"stop"
 }]
 }
 
@@ -172,6 +214,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="UI/Screen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+ratio = 1.7
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="UI/Screen/AspectRatioContainer"]
+layout_mode = 2
+stream = ExtResource("4_101rs")
+expand = true
+metadata/_edit_use_anchors_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

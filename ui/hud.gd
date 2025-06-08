@@ -9,3 +9,6 @@ func _on_game_game_started() -> void:
 
 func _on_game_game_ended() -> void:
 	visible = false
+
+func _on_game_game_finished(_time_left: float) -> void:
+	visible = false

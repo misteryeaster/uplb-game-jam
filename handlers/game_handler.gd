@@ -1,6 +1,7 @@
 extends Node3D
 signal game_started
 signal game_ended
+signal game_finished
 signal time_up
 signal time_warning
 signal time_changed(remaining_time: float)
@@ -222,14 +223,10 @@ func _on_player_died() -> void:
 
 # Fixed signal handler for win condition
 func _on_player_won() -> void:
-	print("🎉 PLAYER WON SIGNAL RECEIVED! 🎉")
-	print("Player won with ", current_time, " seconds remaining!")
 	stop_timer()  # Stop the timer immediately when player wins
 	
-	# Wait 5 seconds before ending the game
-	await get_tree().create_timer(5.0).timeout
-	end()
-
+	$Timer.start()
+	
 # Optional: Add restart functionality
 func restart() -> void:
 	if game_ongoing:
@@ -238,3 +235,17 @@ func restart() -> void:
 	# Wait a frame to ensure end() is processed
 	await get_tree().process_frame
 	start()
+
+func _on_player_player_won() -> void:
+	$Timer.start()
+
+func _on_timer_timeout() -> void:
+	print("Game finished!")
+	
+	game_finished.emit(current_time)
+
+func _on_play_button_game_restart_requested() -> void:
+	restart()
+
+func _on_quit_button_game_quit_requested() -> void:
+	end()

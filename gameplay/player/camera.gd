@@ -11,6 +11,8 @@ extends Camera3D
 
 @onready var initial_pos: Vector3 = global_position
 
+@onready var finished: bool = false
+
 func _ready():
 	player = get_node("../Player")
 	if player:
@@ -22,12 +24,13 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	# Calculate base target position
-	var target_pos = player.global_position + offset
+	if (!finished):
+		var target_pos = player.global_position + offset
 	
-	# Update base position - NO smoothing for Z (forward movement)
-	base_position.z = target_pos.z  # Move instantly with player forward movement
-	base_position.x = lerp(base_position.x, target_pos.x, x_smoothing * delta)  # Fast smoothing for lane switching
-	base_position.y = target_pos.y  # Keep Y from offset
+		# Update base position - NO smoothing for Z (forward movement)
+		base_position.z = target_pos.z  # Move instantly with player forward movement
+		base_position.x = lerp(base_position.x, target_pos.x, x_smoothing * delta)  # Fast smoothing for lane switching
+		base_position.y = target_pos.y  # Keep Y from offset
 	
 	# Apply shake as offset from base position
 	var shake_offset = Vector3.ZERO
@@ -45,11 +48,15 @@ func _physics_process(delta: float) -> void:
 
 func _on_game_game_started() -> void:
 	game_started = true
+	finished = false
+	
+	if player:
+		offset = initial_pos - player.global_position
 
 func _on_player_just_reset() -> void:
 	base_position = initial_pos
 	global_position = initial_pos
-	game_started = false
+
 	shake_timer = 0.0
 	
 	# Recalculate offset when player resets
@@ -58,3 +65,6 @@ func _on_player_just_reset() -> void:
 
 func _on_hurtbox_hurt(damage) -> void:
 	shake_timer = 0.5 + (damage * 0.1)
+
+func _on_player_player_won() -> void:
+	finished = true
